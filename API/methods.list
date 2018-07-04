@@ -1,0 +1,13 @@
+GET /tasks - список задач
+GET /tasks/{id} - инфа о задаче
+GET /tasks/{id}/bids - список заявок к задаче
+GET /users/{id} - получить инфу о пользователе
+
+POST /users/login - авторизация
+POST /tasks - разместить задачу
+
+
+
+
+
+POST /users/register - регистрация
