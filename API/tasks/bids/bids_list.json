@@ -1,0 +1,29 @@
+{
+  "status": "OK",
+  "message": "Error/Or No",
+  "data":
+    [
+    {
+      "bid_id": 11,
+      "task_id": 12121,
+      "user_id": 77,
+      "text": "i can do it",
+      "date": "json_date_format_here"
+    },
+    {
+      "bid_id": 11,
+      "task_id": 12121,
+      "user_id": 77,
+      "text": "or i",
+      "date": "json_date_format_here"
+    },
+    {
+      "bid_id": 11,
+      "task_id": 12121,
+      "user_id": 77,
+      "text": "Super Task",
+      "date": "json_date_format_here"
+    }
+    ]
+
+}

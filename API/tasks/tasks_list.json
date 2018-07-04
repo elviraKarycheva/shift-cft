@@ -10,7 +10,7 @@
       "description": "Super mega task",
       "date": "json_date_format_here",
       "status": "string",
-      "id_selected_apply": 897
+      "id_selected_bid": 897
     },
     {
       "task_id": 11,
@@ -19,7 +19,7 @@
       "description": "Super mega task",
       "date": "json_date_format_here",
       "status": "string",
-      "id_selected_apply": 897
+      "id_selected_bid": 897
     },
     {
       "task_id": 11,
@@ -28,7 +28,7 @@
       "description": "Super mega task",
       "date": "json_date_format_here",
       "status": "string",
-      "id_selected_apply": 897
+      "id_selected_bid": 897
     }
   ]
 }
