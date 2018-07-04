@@ -7,6 +7,7 @@
       "bid_id": 11,
       "task_id": 12121,
       "user_id": 77,
+      "user_name": "Ivan Ivanovich",
       "text": "i can do it",
       "date": "json_date_format_here"
     },
@@ -14,6 +15,7 @@
       "bid_id": 11,
       "task_id": 12121,
       "user_id": 77,
+      "user_name": "Ivan Ivanovich",
       "text": "or i",
       "date": "json_date_format_here"
     },
@@ -21,6 +23,7 @@
       "bid_id": 11,
       "task_id": 12121,
       "user_id": 77,
+      "user_name": "Ivan Ivanovich",
       "text": "Super Task",
       "date": "json_date_format_here"
     }
