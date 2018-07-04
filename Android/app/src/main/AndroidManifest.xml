@@ -20,6 +20,8 @@
 
         <activity android:name=".features.books.presentation.BookActivity" />
 
+        <activity android:name=".features.users.presentation.UserActivity" />
+
     </application>
 
 </manifest>

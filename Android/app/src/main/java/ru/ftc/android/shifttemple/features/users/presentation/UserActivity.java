@@ -1,6 +1,5 @@
-package ru.ftc.android.shifttemple.features.tasks.presentation;
+package ru.ftc.android.shifttemple.features.users.presentation;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,79 +14,67 @@ import ru.ftc.android.shifttemple.R;
 import ru.ftc.android.shifttemple.features.BaseActivity;
 import ru.ftc.android.shifttemple.features.MvpPresenter;
 import ru.ftc.android.shifttemple.features.MvpView;
-import ru.ftc.android.shifttemple.features.tasks.domain.model.Task;
-import ru.ftc.android.shifttemple.features.users.presentation.UserActivity;
 
-public final class TasksActivity extends BaseActivity implements TasksListView {
+
+public final class UserActivity extends BaseActivity implements UserView {
 
     private ProgressBar progressBar;
-    private RecyclerView recyclerView;
-    private Button createTaskButton;
-    private TasksAdapter adapter;
+    //private RecyclerView recyclerView;
+    //private Button createuserButton;
 
-    private TasksListPresenter presenter;
+
+    private UserPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
-        setContentView(R.layout.tasks_activity);
+        setContentView(R.layout.login_activity);
 
         initView();
     }
 
     private void initView() {
-        progressBar = findViewById(R.id.tasks_progress);
-        recyclerView = findViewById(R.id.tasks_recycle_view);
-        createTaskButton = findViewById(R.id.create_button);
+        progressBar = findViewById(R.id.login_progress);
+        /*recyclerView = findViewById(R.id.users_recycle_view);
+        reateuserButton = findViewById(R.id.create_button);
 
-        createTaskButton.setOnClickListener(new View.OnClickListener() {
+        createuserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.onCreateTaskClicked();
+                presenter.onCreateuserClicked();
             }
         });
 
-        adapter = new TasksAdapter(this, new TasksAdapter.SelectTaskListener() {
+        adapter = new usersAdapter(this, new usersAdapter.SelectuserListener() {
             @Override
-            public void onTaskSelect(Task task) {
-                presenter.onTaskSelected(task);
+            public void onuserSelect(user user) {
+                presenter.onuserSelected(user);
             }
 
             @Override
-            public void onTaskLongClick(Task task) {
-
-                presenter.onTaskLongClicked(task);
-
-                Intent intent = new Intent(TasksActivity.this, UserActivity.class);
-
-                startActivity(intent);
-
+            public void onuserLongClick(user user) {
+                presenter.onuserLongClicked(user);
             }
         });
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        */
     }
 
     @Override
     public void showProgress() {
         progressBar.setVisibility(View.VISIBLE);
-        recyclerView.setVisibility(View.GONE);
+        //recyclerView.setVisibility(View.GONE);
     }
 
     @Override
     public void hideProgress() {
         progressBar.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
+        //recyclerView.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void showTaskList(List<Task> list) {
-        adapter.setTasks(list);
-    }
+
 
     @Override
     public void showError(String message) {
@@ -95,7 +82,7 @@ public final class TasksActivity extends BaseActivity implements TasksListView {
     }
 
     @Override
-    protected MvpPresenter<TasksListView> getPresenter() {
+    protected MvpPresenter<UserView> getPresenter() {
         presenter = PresenterFactory.createPresenter(this);
         return presenter;
     }

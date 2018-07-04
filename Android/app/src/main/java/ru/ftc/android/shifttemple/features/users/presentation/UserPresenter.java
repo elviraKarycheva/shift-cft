@@ -1,33 +1,32 @@
-package ru.ftc.android.shifttemple.features.tasks.presentation;
+package ru.ftc.android.shifttemple.features.users.presentation;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import ru.ftc.android.shifttemple.features.MvpPresenter;
-import ru.ftc.android.shifttemple.features.books.domain.model.Success;
-import ru.ftc.android.shifttemple.features.tasks.domain.TasksInteractor;
-import ru.ftc.android.shifttemple.features.tasks.domain.model.Task;
-import ru.ftc.android.shifttemple.network.Carry;
+import ru.ftc.android.shifttemple.features.users.domain.UsersInteractor;
+import ru.ftc.android.shifttemple.features.users.domain.model.User;
 
-final class TasksListPresenter extends MvpPresenter<TasksListView> {
-    private final TasksInteractor interactor;
 
-    TasksListPresenter(TasksInteractor interactor) {
+final class UserPresenter extends MvpPresenter<UserView> {
+    private final UsersInteractor interactor;
+
+    UserPresenter(UsersInteractor interactor) {
         this.interactor = interactor;
     }
 
     @Override
     protected void onViewReady() {
-        loadTasks();
+        loadusers();
     }
 
-    private void loadTasks() {
-        view.showProgress();
-        interactor.loadTasks(new Carry<List<Task>>() {
+    private void loadusers() {
+        /*view.showProgress();
+        interactor.loadusers(new Carry<List<user>>() {
 
             @Override
-            public void onSuccess(List<Task> result) {
-                view.showTaskList(result);
+            public void onSuccess(List<user> result) {
+                view.showuserList(result);
                 view.hideProgress();
             }
 
@@ -38,14 +37,15 @@ final class TasksListPresenter extends MvpPresenter<TasksListView> {
             }
 
         });
+        */
     }
 
-    void onTaskSelected(Task task) {
+    void onuserSelected(User user) {
         view.showProgress();
-        interactor.loadTask(task.getId(), new Carry<Task>() {
+       /* interactor.loaduser(user.getId(), new Carry<user>() {
 
             @Override
-            public void onSuccess(Task result) {
+            public void onSuccess(user result) {
                 view.hideProgress();
                 // do something
                 view.showError(result.getStatus());
@@ -58,18 +58,17 @@ final class TasksListPresenter extends MvpPresenter<TasksListView> {
             }
 
         });
+        */
     }
 
-    void onTaskLongClicked(Task task) {
+    void onuserLongClicked(User user) {
         view.showError("May be added to favorite.. May be no;)"); // TODO: favorite
-
-
         /*view.showProgress();
-        interactor.deleteTask(Task.getId(), new Carry<Success>() {
+        interactor.deleteuser(user.getId(), new Carry<Success>() {
 
             @Override
             public void onSuccess(Success result) {
-                loadTasks();
+                loadusers();
             }
 
             @Override
@@ -83,17 +82,17 @@ final class TasksListPresenter extends MvpPresenter<TasksListView> {
 
     private final AtomicInteger atomicInteger = new AtomicInteger();
 
-    public void onCreateTaskClicked() {
+    public void onCreateuserClicked() {
         int id = atomicInteger.incrementAndGet();
         String name = "Name_" + id;
         String author = "Kolsha_" + id;
         int pages = 7 * id;
 
-        Task Task = new Task(name, author, String.valueOf(pages));
-        interactor.createTask(Task, new Carry<Task>() {
+        /*user user = new user(name, author, String.valueOf(pages));
+        interactor.createuser(user, new Carry<user>() {
             @Override
-            public void onSuccess(Task result) {
-                loadTasks();
+            public void onSuccess(user result) {
+                loadusers();
             }
 
             @Override
@@ -101,5 +100,8 @@ final class TasksListPresenter extends MvpPresenter<TasksListView> {
                 view.showError(throwable.getMessage());
             }
         });
+        */
     }
 }
+
+
