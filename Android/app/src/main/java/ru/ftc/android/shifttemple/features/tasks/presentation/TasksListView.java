@@ -6,7 +6,7 @@ import java.util.List;
 import ru.ftc.android.shifttemple.features.MvpView;
 import ru.ftc.android.shifttemple.features.tasks.domain.model.Task;
 
-interface TaskListView extends MvpView {
+interface TasksListView extends MvpView {
 
     void showProgress();
 
