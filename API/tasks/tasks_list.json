@@ -1,0 +1,34 @@
+{
+  "status": "OK",
+  "message": "Error/Or No",
+  "data": 
+    [
+      {
+      "id": 11,
+      "user_id": 77,
+      "title": "Super Task",
+      "description": "Super mega task",
+      "date": "json_date_format_here",
+      "status": "string",
+      "id_selected_apply": 897
+    },
+    {
+      "id": 11,
+      "user_id": 77,
+      "title": "Super Task",
+      "description": "Super mega task",
+      "date": "json_date_format_here",
+      "status": "string",
+      "id_selected_apply": 897
+    },
+    {
+      "id": 11,
+      "user_id": 77,
+      "title": "Super Task",
+      "description": "Super mega task",
+      "date": "json_date_format_here",
+      "status": "string",
+      "id_selected_apply": 897
+    }
+  ]
+}
