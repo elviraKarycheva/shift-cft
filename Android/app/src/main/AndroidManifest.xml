@@ -10,13 +10,15 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".features.books.presentation.BookActivity">
+        <activity android:name=".features.tasks.presentation.TasksActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".features.books.presentation.BookActivity" />
 
     </application>
 

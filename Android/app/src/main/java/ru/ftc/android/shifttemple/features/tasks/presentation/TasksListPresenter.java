@@ -60,7 +60,8 @@ final class TasksListPresenter extends MvpPresenter<TasksListView> {
         });
     }
 
-    void onTaskLongClicked(Task Task) {
+    void onTaskLongClicked(Task task) {
+        view.showError("May be added to favorite.. May be no;)"); // TODO: favorite
         /*view.showProgress();
         interactor.deleteTask(Task.getId(), new Carry<Success>() {
 

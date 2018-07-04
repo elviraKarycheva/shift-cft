@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class RetrofitProvider {
 
-    private static final String BASE_URL = "http://172.16.18.213:8080/api/v001/";
+    private static final String BASE_URL = "http://ksware.ru/sandbox/gf-api/";
 
     private final Retrofit retrofit;
 

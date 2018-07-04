@@ -1,7 +1,7 @@
 package ru.ftc.android.shifttemple.features.tasks.domain.model;
 
 public final class Task {
-    private String id;
+    private String task_id;
     private String user_id;
     private String title;
     private String description;
@@ -16,7 +16,7 @@ public final class Task {
     }
 
     public String getId() {
-        return id;
+        return task_id;
     }
 
     public String getTitle() {
