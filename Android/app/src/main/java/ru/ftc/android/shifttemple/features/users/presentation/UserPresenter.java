@@ -14,7 +14,7 @@ import ru.ftc.android.shifttemple.network.Carry;
 
 
 final class UserPresenter extends MvpPresenter<UserView> {
-    //TODO: ask ..
+    //TODO: get/set
     public String loginText;
     public String passwordText;
     private final UsersInteractor interactor;
@@ -23,10 +23,10 @@ final class UserPresenter extends MvpPresenter<UserView> {
         this.interactor = interactor;
     }
 
-    //TODO: ask ..
     @Override
     protected void onViewReady() {
         view.hideProgress();
+        // TODO: remove this
         view.setData(loginText, passwordText);
     }
 
@@ -53,7 +53,7 @@ final class UserPresenter extends MvpPresenter<UserView> {
         });
 
         //TODO: move it
-
+/*
         Context context = view.getContext();
 
         SharedPreferences sharedPrefs = context.getSharedPreferences(context.getString(R.string.user_settings_key),
@@ -66,6 +66,7 @@ final class UserPresenter extends MvpPresenter<UserView> {
         prefsEditor.apply();
 
         view.hideActivity();
+        */
     }
 }
 

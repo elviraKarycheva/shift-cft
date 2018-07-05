@@ -13,9 +13,10 @@ public interface UserView extends MvpView {
     void showError(String message);
 
 
-    //TODO: ask ..
+
     void setData(String login, String password);
 
+    // TODO: datasource
     Context getContext();
 
     void hideActivity();

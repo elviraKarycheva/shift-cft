@@ -27,7 +27,7 @@ public final class RetrofitProvider {
 
     private final Retrofit retrofit;
 
-    // TODO: ask it is normal to pass context here?
+
     public RetrofitProvider(final Context context) {
         retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
@@ -35,7 +35,7 @@ public final class RetrofitProvider {
                 .client(createClient(context))
                 .build();
     }
-
+    //TODO: move interceptor
     private OkHttpClient createClient(final Context context) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
