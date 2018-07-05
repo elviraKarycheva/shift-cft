@@ -26,6 +26,6 @@ public final class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        retrofitProvider = new RetrofitProvider();
+        retrofitProvider = new RetrofitProvider(getApplicationContext());
     }
 }
