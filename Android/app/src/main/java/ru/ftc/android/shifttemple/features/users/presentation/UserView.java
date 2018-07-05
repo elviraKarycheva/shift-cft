@@ -17,4 +17,6 @@ public interface UserView extends MvpView {
     void setData(String login, String password);
 
     Context getContext();
+
+    void hideActivity();
 }

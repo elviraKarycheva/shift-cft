@@ -26,6 +26,7 @@ public final class UserActivity extends BaseActivity implements UserView {
     private EditText inputLogin;
     private EditText inputPassword;
     private Button loginButton;
+    private Button linkRegisterButton;
 
 
     private UserPresenter presenter;
@@ -43,10 +44,22 @@ public final class UserActivity extends BaseActivity implements UserView {
 
         loginButton = findViewById(R.id.btn_login);
 
+        linkRegisterButton = findViewById(R.id.btn_link_reg);
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.onLoginButtonClicked();
+            }
+        });
+
+        linkRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Intent intent = new Intent(TasksActivity.this, UserActivity.class);
+
+                //startActivity(intent);
+                showError("Register later");
             }
         });
 
@@ -131,5 +144,8 @@ public final class UserActivity extends BaseActivity implements UserView {
         return this;
     }
 
-
+    @Override
+    public void hideActivity() {
+        this.finish();
+    }
 }

@@ -1,8 +1,12 @@
 package ru.ftc.android.shifttemple.features.users.presentation;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import ru.ftc.android.shifttemple.R;
 import ru.ftc.android.shifttemple.features.MvpPresenter;
 import ru.ftc.android.shifttemple.features.users.domain.UsersInteractor;
 import ru.ftc.android.shifttemple.features.users.domain.model.User;
@@ -47,6 +51,21 @@ final class UserPresenter extends MvpPresenter<UserView> {
             }
 
         });
+
+        //TODO: move it
+
+        Context context = view.getContext();
+
+        SharedPreferences sharedPrefs = context.getSharedPreferences(context.getString(R.string.user_settings_key),
+                Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor prefsEditor = sharedPrefs.edit();
+
+        prefsEditor.putString(context.getString(R.string.query_token_name), "my_super_token");
+
+        prefsEditor.apply();
+
+        view.hideActivity();
     }
 }
 
