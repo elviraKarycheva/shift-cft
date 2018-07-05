@@ -40,6 +40,10 @@ final class TasksListPresenter extends MvpPresenter<TasksListView> {
         });
     }
 
+    void onRefreshTasks() {
+        loadTasks();
+    }
+
     void onTaskSelected(Task task) {
         view.showProgress();
         interactor.loadTask(task.getId(), new Carry<Task>() {

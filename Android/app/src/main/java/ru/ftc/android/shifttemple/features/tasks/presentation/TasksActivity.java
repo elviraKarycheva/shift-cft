@@ -2,6 +2,8 @@ package ru.ftc.android.shifttemple.features.tasks.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -20,9 +22,9 @@ import ru.ftc.android.shifttemple.features.users.presentation.UserActivity;
 
 public final class TasksActivity extends BaseActivity implements TasksListView {
 
-    private ProgressBar progressBar;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView recyclerView;
-    private Button createTaskButton;
+    private FloatingActionButton createTaskButton;
     private TasksAdapter adapter;
 
     private TasksListPresenter presenter;
@@ -32,21 +34,28 @@ public final class TasksActivity extends BaseActivity implements TasksListView {
         super.onCreate(savedInstanceState);
 
 
-
         setContentView(R.layout.tasks_activity);
 
         initView();
     }
 
     private void initView() {
-        progressBar = findViewById(R.id.tasks_progress);
+        mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         recyclerView = findViewById(R.id.tasks_recycle_view);
-        createTaskButton = findViewById(R.id.create_button);
+        createTaskButton = findViewById(R.id.create_task_button);
 
         createTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.onCreateTaskClicked();
+            }
+        });
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                presenter.onRefreshTasks();
             }
         });
 
@@ -74,13 +83,13 @@ public final class TasksActivity extends BaseActivity implements TasksListView {
 
     @Override
     public void showProgress() {
-        progressBar.setVisibility(View.VISIBLE);
+        mSwipeRefreshLayout.setRefreshing(true);
         recyclerView.setVisibility(View.GONE);
     }
 
     @Override
     public void hideProgress() {
-        progressBar.setVisibility(View.GONE);
+        mSwipeRefreshLayout.setRefreshing(false);
         recyclerView.setVisibility(View.VISIBLE);
     }
 
