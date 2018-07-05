@@ -4,6 +4,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ru.ftc.android.shifttemple.exception.EmptyBodyException;
+import ru.ftc.android.shifttemple.exception.NotAuthorizedException;
+import ru.ftc.android.shifttemple.exception.UnknownException;
 import ru.ftc.android.shifttemple.features.books.domain.model.Wrapper;
 
 /**
@@ -25,7 +27,18 @@ public final class DefaultCallback<T> implements Callback<Wrapper<T>> {
     public void onResponse(Call<Wrapper<T>> call, Response<Wrapper<T>> response) {
         Wrapper<T> wrapper = response.body();
         if (wrapper != null) {
-            carry.onSuccess(wrapper.getData());
+            if (!wrapper.getStatus().equals("OK")) {
+                switch (wrapper.getStatus()) {
+                    case "NEED_AUTH":
+                        carry.onFailure(new NotAuthorizedException());
+                        break;
+                    default:
+                        carry.onFailure(new UnknownException(wrapper.getMessage()));
+                }
+            } else {
+                carry.onSuccess(wrapper.getData());
+            }
+
         } else {
             carry.onFailure(new EmptyBodyException());
         }

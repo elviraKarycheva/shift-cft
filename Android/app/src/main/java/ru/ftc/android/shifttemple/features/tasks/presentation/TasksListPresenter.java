@@ -42,6 +42,7 @@ final class TasksListPresenter extends MvpPresenter<TasksListView> {
 
     void onRefreshTasks() {
         loadTasks();
+
     }
 
     void onTaskSelected(Task task) {

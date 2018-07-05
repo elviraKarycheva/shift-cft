@@ -16,4 +16,6 @@ interface TasksListView extends MvpView {
 
     void showError(String message);
 
+    void showLoginForm();
+
 }

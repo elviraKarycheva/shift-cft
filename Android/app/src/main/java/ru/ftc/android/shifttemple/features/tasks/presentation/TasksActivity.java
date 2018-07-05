@@ -1,6 +1,8 @@
 package ru.ftc.android.shifttemple.features.tasks.presentation;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -39,6 +41,22 @@ public final class TasksActivity extends BaseActivity implements TasksListView {
         initView();
     }
 
+    @Override
+    protected void onStart() {
+
+        super.onStart();
+        // TODO: move this to presenter
+        SharedPreferences sharedPrefs = getSharedPreferences(getString(R.string.user_settings_key),
+                Context.MODE_PRIVATE);
+
+        String token = sharedPrefs.getString(getString(R.string.query_token_name), "");
+        if(token.isEmpty()){
+            showLoginForm();
+        }
+
+
+    }
+
     private void initView() {
         mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         recyclerView = findViewById(R.id.tasks_recycle_view);
@@ -70,9 +88,7 @@ public final class TasksActivity extends BaseActivity implements TasksListView {
 
                 presenter.onTaskLongClicked(task);
 
-                Intent intent = new Intent(TasksActivity.this, UserActivity.class);
 
-                startActivity(intent);
 
             }
         });
@@ -112,5 +128,12 @@ public final class TasksActivity extends BaseActivity implements TasksListView {
     @Override
     protected MvpView getMvpView() {
         return this;
+    }
+
+    @Override
+    public void showLoginForm() {
+        Intent intent = new Intent(TasksActivity.this, UserActivity.class);
+
+        startActivity(intent);
     }
 }
