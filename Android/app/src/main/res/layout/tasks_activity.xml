@@ -69,6 +69,5 @@
         app:layout_anchor="@id/swipeRefreshLayout"
         app:layout_anchorGravity="bottom|end"
         app:srcCompat="@android:drawable/ic_input_add" />
-    <!-- TODO: show this button !-->
 
 </android.support.design.widget.CoordinatorLayout>

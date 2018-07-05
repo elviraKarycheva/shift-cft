@@ -3,6 +3,7 @@ package ru.ftc.android.shifttemple.features.tasks.data;
 import java.util.List;
 
 import ru.ftc.android.shifttemple.features.books.domain.model.Success;
+import ru.ftc.android.shifttemple.features.tasks.domain.model.Bid;
 import ru.ftc.android.shifttemple.features.tasks.domain.model.Task;
 import ru.ftc.android.shifttemple.network.Carry;
 
@@ -32,5 +33,15 @@ public final class TasksRepositoryImpl implements TasksRepository {
     @Override
     public void deleteTask(String id, Carry<Success> carry) {
         dataSource.deleteTask(id, carry);
+    }
+
+    @Override
+    public void loadTaskBids(String id, Carry<List<Bid>> carry) {
+        dataSource.getTaskBids(id, carry);
+    }
+
+    @Override
+    public void createTaskBid(String id, Bid bid, Carry<Bid> carry) {
+        dataSource.createTaskBid(id, bid, carry);
     }
 }
