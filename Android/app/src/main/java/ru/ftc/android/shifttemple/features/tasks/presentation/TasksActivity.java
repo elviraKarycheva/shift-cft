@@ -40,21 +40,10 @@ public final class TasksActivity extends BaseActivity implements TasksListView {
 
         initView();
     }
-
+    //TODO: ask it is normal?
     @Override
-    protected void onStart() {
-
-        super.onStart();
-        // TODO: move this to presenter
-        SharedPreferences sharedPrefs = getSharedPreferences(getString(R.string.user_settings_key),
-                Context.MODE_PRIVATE);
-
-        String token = sharedPrefs.getString(getString(R.string.query_token_name), "");
-        if(token.isEmpty()){
-            showLoginForm();
-        }
-
-
+    public Context getContext() {
+        return this;
     }
 
     private void initView() {

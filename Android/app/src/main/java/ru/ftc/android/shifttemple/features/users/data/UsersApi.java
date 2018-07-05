@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -17,12 +18,12 @@ import ru.ftc.android.shifttemple.features.users.domain.model.User;
 
 public interface UsersApi {
 
-
+    //TODO: why POST is skipped?
 
     @GET("users/{id}")
     Call<Wrapper<User>> getUser(@Path("id") String id);
 
-
+    @FormUrlEncoded
     @POST("users/login")
     Call<Wrapper<User>> loginUser(@Field("login") String login,
                                    @Field("password") String password);

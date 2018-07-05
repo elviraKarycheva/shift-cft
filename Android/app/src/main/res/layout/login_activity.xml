@@ -19,7 +19,7 @@
 
 
     <EditText
-        android:id="@+id/login_input_email"
+        android:id="@+id/login_input_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Логин"

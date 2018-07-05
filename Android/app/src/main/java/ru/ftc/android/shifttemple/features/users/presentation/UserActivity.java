@@ -1,10 +1,14 @@
 package ru.ftc.android.shifttemple.features.users.presentation;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -19,8 +23,9 @@ import ru.ftc.android.shifttemple.features.MvpView;
 public final class UserActivity extends BaseActivity implements UserView {
 
     private ProgressBar progressBar;
-    //private RecyclerView recyclerView;
-    //private Button createuserButton;
+    private EditText inputLogin;
+    private EditText inputPassword;
+    private Button loginButton;
 
 
     private UserPresenter presenter;
@@ -35,32 +40,57 @@ public final class UserActivity extends BaseActivity implements UserView {
 
     private void initView() {
         progressBar = findViewById(R.id.login_progress);
-        /*recyclerView = findViewById(R.id.users_recycle_view);
-        reateuserButton = findViewById(R.id.create_button);
 
-        createuserButton.setOnClickListener(new View.OnClickListener() {
+        loginButton = findViewById(R.id.btn_login);
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.onCreateuserClicked();
+                presenter.onLoginButtonClicked();
             }
         });
 
-        adapter = new usersAdapter(this, new usersAdapter.SelectuserListener() {
-            @Override
-            public void onuserSelect(user user) {
-                presenter.onuserSelected(user);
-            }
 
-            @Override
-            public void onuserLongClick(user user) {
-                presenter.onuserLongClicked(user);
-            }
-        });
+        inputLogin = findViewById(R.id.login_input_login);
+        inputPassword = findViewById(R.id.login_input_password);
 
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        */
+
+        inputLogin.addTextChangedListener(loginWatcher);
+        inputPassword.addTextChangedListener(passwordWatcher);
+
     }
+
+
+
+    private final TextWatcher loginWatcher = new TextWatcher() {
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        public void afterTextChanged(Editable s) {
+            presenter.loginText = s.toString();
+        }
+    };
+
+    private final TextWatcher passwordWatcher = new TextWatcher() {
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+
+        public void afterTextChanged(Editable s) {
+            presenter.passwordText = s.toString();
+        }
+    };
+
+
+
+
 
     @Override
     public void showProgress() {
@@ -74,7 +104,11 @@ public final class UserActivity extends BaseActivity implements UserView {
         //recyclerView.setVisibility(View.VISIBLE);
     }
 
-
+    @Override
+    public void setData(String login, String password) {
+        inputLogin.setText(login);
+        inputPassword.setText(password);
+    }
 
     @Override
     public void showError(String message) {
@@ -91,4 +125,11 @@ public final class UserActivity extends BaseActivity implements UserView {
     protected MvpView getMvpView() {
         return this;
     }
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
+
 }

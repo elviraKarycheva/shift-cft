@@ -6,49 +6,38 @@ import java.util.concurrent.atomic.AtomicInteger;
 import ru.ftc.android.shifttemple.features.MvpPresenter;
 import ru.ftc.android.shifttemple.features.users.domain.UsersInteractor;
 import ru.ftc.android.shifttemple.features.users.domain.model.User;
+import ru.ftc.android.shifttemple.network.Carry;
 
 
 final class UserPresenter extends MvpPresenter<UserView> {
+    //TODO: ask ..
+    public String loginText;
+    public String passwordText;
     private final UsersInteractor interactor;
 
     UserPresenter(UsersInteractor interactor) {
         this.interactor = interactor;
     }
 
+    //TODO: ask ..
     @Override
     protected void onViewReady() {
-        loadusers();
+        view.hideProgress();
+        view.setData(loginText, passwordText);
     }
 
-    private void loadusers() {
-        /*view.showProgress();
-        interactor.loadusers(new Carry<List<user>>() {
-
-            @Override
-            public void onSuccess(List<user> result) {
-                view.showuserList(result);
-                view.hideProgress();
-            }
-
-            @Override
-            public void onFailure(Throwable throwable) {
-                view.hideProgress();
-                view.showError(throwable.getMessage());
-            }
-
-        });
-        */
-    }
-
-    void onuserSelected(User user) {
+    public void onLoginButtonClicked() {
+        if (loginText.isEmpty() || passwordText.isEmpty()) {
+            view.showError("Fill all fields");
+            return;
+        }
         view.showProgress();
-       /* interactor.loaduser(user.getId(), new Carry<user>() {
+        interactor.loginUser(loginText, passwordText, new Carry<User>() {
 
             @Override
-            public void onSuccess(user result) {
+            public void onSuccess(User result) {
+                // view hide etc
                 view.hideProgress();
-                // do something
-                view.showError(result.getStatus());
             }
 
             @Override
@@ -58,49 +47,6 @@ final class UserPresenter extends MvpPresenter<UserView> {
             }
 
         });
-        */
-    }
-
-    void onuserLongClicked(User user) {
-        view.showError("May be added to favorite.. May be no;)"); // TODO: favorite
-        /*view.showProgress();
-        interactor.deleteuser(user.getId(), new Carry<Success>() {
-
-            @Override
-            public void onSuccess(Success result) {
-                loadusers();
-            }
-
-            @Override
-            public void onFailure(Throwable throwable) {
-                view.hideProgress();
-                view.showError(throwable.getMessage());
-            }
-        });
-        */
-    }
-
-    private final AtomicInteger atomicInteger = new AtomicInteger();
-
-    public void onCreateuserClicked() {
-        int id = atomicInteger.incrementAndGet();
-        String name = "Name_" + id;
-        String author = "Kolsha_" + id;
-        int pages = 7 * id;
-
-        /*user user = new user(name, author, String.valueOf(pages));
-        interactor.createuser(user, new Carry<user>() {
-            @Override
-            public void onSuccess(user result) {
-                loadusers();
-            }
-
-            @Override
-            public void onFailure(Throwable throwable) {
-                view.showError(throwable.getMessage());
-            }
-        });
-        */
     }
 }
 

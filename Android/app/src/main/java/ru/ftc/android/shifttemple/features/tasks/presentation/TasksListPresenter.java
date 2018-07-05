@@ -1,8 +1,13 @@
 package ru.ftc.android.shifttemple.features.tasks.presentation;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import ru.ftc.android.shifttemple.App;
+import ru.ftc.android.shifttemple.R;
 import ru.ftc.android.shifttemple.features.MvpPresenter;
 import ru.ftc.android.shifttemple.features.books.domain.model.Success;
 import ru.ftc.android.shifttemple.features.tasks.domain.TasksInteractor;
@@ -18,7 +23,19 @@ final class TasksListPresenter extends MvpPresenter<TasksListView> {
 
     @Override
     protected void onViewReady() {
-        loadTasks();
+
+        // TODO: move this to presenter
+        Context context = view.getContext();
+
+        SharedPreferences sharedPrefs = context.getSharedPreferences(context.getString(R.string.user_settings_key),
+                Context.MODE_PRIVATE);
+
+        String token = sharedPrefs.getString(context.getString(R.string.query_token_name), "");
+        if (token.isEmpty()) {
+            view.showLoginForm();
+        } else {
+            loadTasks();
+        }
     }
 
     private void loadTasks() {
