@@ -1,0 +1,10 @@
+{
+  "status": "OK",
+  "message": "Error/Or No",
+  "data": {
+  	"token": "string_token",
+  	"user":{
+  		
+  	}
+  }
+}

@@ -6,6 +6,8 @@ GET /users/{id} - получить инфу о пользователе
 POST /users/login - авторизация
 POST /tasks - разместить задачу
 
+POST /tasks/{id}/bids - разместить заявку к задаче
+
 
 
 
