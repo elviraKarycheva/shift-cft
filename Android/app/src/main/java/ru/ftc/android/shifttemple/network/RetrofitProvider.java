@@ -14,6 +14,8 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.ftc.android.shifttemple.R;
+import ru.ftc.android.shifttemple.features.users.data.UsersLocalDataSourceImpl;
+import ru.ftc.android.shifttemple.features.users.data.UsersLocalRepositoryImpl;
 
 /**
  * Created: samokryl
@@ -29,14 +31,16 @@ public final class RetrofitProvider {
 
 
     public RetrofitProvider(final Context context) {
+        // TODO: ask it is normal?
+        String token = (new UsersLocalRepositoryImpl(new UsersLocalDataSourceImpl(context))).getUserToken();
         retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BASE_URL)
-                .client(createClient(context))
+                .client(createClient(token))
                 .build();
     }
     //TODO: move interceptor
-    private OkHttpClient createClient(final Context context) {
+    private OkHttpClient createClient(final String token) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
         HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor();
@@ -51,14 +55,10 @@ public final class RetrofitProvider {
                 HttpUrl originalHttpUrl = original.url();
 
 
-                SharedPreferences sharedPrefs = context.getSharedPreferences(context.getString(R.string.user_settings_key),
-                        Context.MODE_PRIVATE);
-
-                String token = sharedPrefs.getString(context.getString(R.string.query_token_name), "");
-
 
                 HttpUrl url = originalHttpUrl.newBuilder()
-                        .addQueryParameter(context.getString(R.string.query_token_name), token)
+                        .addQueryParameter("token", token)
+                        .addEncodedPathSegments("/") // TODO: remove it for production api
                         .build();
 
                 // Request customization: add request headers

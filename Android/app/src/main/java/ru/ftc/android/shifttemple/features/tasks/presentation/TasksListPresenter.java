@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import ru.ftc.android.shifttemple.App;
 import ru.ftc.android.shifttemple.R;
+import ru.ftc.android.shifttemple.exception.NotAuthorizedException;
 import ru.ftc.android.shifttemple.features.MvpPresenter;
 import ru.ftc.android.shifttemple.features.books.domain.model.Success;
 import ru.ftc.android.shifttemple.features.tasks.domain.TasksInteractor;
@@ -23,19 +24,7 @@ final class TasksListPresenter extends MvpPresenter<TasksListView> {
 
     @Override
     protected void onViewReady() {
-
-        // TODO: move this to presenter
-        Context context = view.getContext();
-
-        SharedPreferences sharedPrefs = context.getSharedPreferences(context.getString(R.string.user_settings_key),
-                Context.MODE_PRIVATE);
-
-        String token = sharedPrefs.getString(context.getString(R.string.query_token_name), "");
-        if (token.isEmpty()) {
-            view.showLoginForm();
-        } else {
-            loadTasks();
-        }
+        loadTasks();
     }
 
     private void loadTasks() {
@@ -52,6 +41,10 @@ final class TasksListPresenter extends MvpPresenter<TasksListView> {
             public void onFailure(Throwable throwable) {
                 view.hideProgress();
                 view.showError(throwable.getMessage());
+                if(throwable.getClass() == NotAuthorizedException.class){
+                    view.showLoginForm();
+                }
+
             }
 
         });
@@ -84,23 +77,6 @@ final class TasksListPresenter extends MvpPresenter<TasksListView> {
 
     void onTaskLongClicked(Task task) {
         view.showError("May be added to favorite.. May be no;)"); // TODO: favorite
-
-
-        /*view.showProgress();
-        interactor.deleteTask(Task.getId(), new Carry<Success>() {
-
-            @Override
-            public void onSuccess(Success result) {
-                loadTasks();
-            }
-
-            @Override
-            public void onFailure(Throwable throwable) {
-                view.hideProgress();
-                view.showError(throwable.getMessage());
-            }
-        });
-        */
     }
 
     private final AtomicInteger atomicInteger = new AtomicInteger();

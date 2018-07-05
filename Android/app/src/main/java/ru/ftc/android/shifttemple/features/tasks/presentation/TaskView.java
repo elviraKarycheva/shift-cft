@@ -18,7 +18,4 @@ interface TaskView extends MvpView {
     void showError(String message);
 
 
-    Context getContext();
-
-
 }

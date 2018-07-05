@@ -10,6 +10,10 @@ import ru.ftc.android.shifttemple.features.tasks.data.TasksRepository;
 import ru.ftc.android.shifttemple.features.tasks.data.TasksRepositoryImpl;
 import ru.ftc.android.shifttemple.features.tasks.domain.TasksInteractor;
 import ru.ftc.android.shifttemple.features.tasks.domain.TasksInteractorImpl;
+import ru.ftc.android.shifttemple.features.users.data.UsersLocalDataSource;
+import ru.ftc.android.shifttemple.features.users.data.UsersLocalDataSourceImpl;
+import ru.ftc.android.shifttemple.features.users.data.UsersLocalRepository;
+import ru.ftc.android.shifttemple.features.users.data.UsersLocalRepositoryImpl;
 
 final class PresenterFactory {
     static TasksListPresenter createPresenter(Context context) {
@@ -17,9 +21,13 @@ final class PresenterFactory {
                 .getRetrofit()
                 .create(TasksApi.class);
 
+
+        final UsersLocalDataSource usersDataSourceLocal = new UsersLocalDataSourceImpl(context);
+        final UsersLocalRepository usersRepositoryLocal = new UsersLocalRepositoryImpl(usersDataSourceLocal);
+
         final TasksDataSource dataSource = new TasksDataSourceImpl(api);
         final TasksRepository repository = new TasksRepositoryImpl(dataSource);
-        final TasksInteractor interactor = new TasksInteractorImpl(repository);
+        final TasksInteractor interactor = new TasksInteractorImpl(repository, usersRepositoryLocal);
 
         return new TasksListPresenter(interactor);
     }

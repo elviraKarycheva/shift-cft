@@ -4,7 +4,7 @@
 
 
     <string name="user_settings_key">user</string>
-    <string name="query_token_name">token</string>
+    <string name="query_token_name">token_tm</string>
 
     <string name="action_settings">Settings</string>
 </resources>

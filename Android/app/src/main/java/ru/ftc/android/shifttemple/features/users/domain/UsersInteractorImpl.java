@@ -3,6 +3,7 @@ package ru.ftc.android.shifttemple.features.users.domain;
 import java.util.List;
 
 import ru.ftc.android.shifttemple.features.books.domain.model.Success;
+import ru.ftc.android.shifttemple.features.users.data.UsersLocalRepository;
 import ru.ftc.android.shifttemple.features.users.data.UsersRepository;
 
 import ru.ftc.android.shifttemple.features.users.domain.model.User;
@@ -12,9 +13,11 @@ import ru.ftc.android.shifttemple.network.Carry;
 public final class UsersInteractorImpl implements UsersInteractor {
 
     private final UsersRepository repository;
+    private final UsersLocalRepository repositoryLocal;
 
-    public UsersInteractorImpl(UsersRepository repository) {
+    public UsersInteractorImpl(UsersRepository repository, UsersLocalRepository repositoryLocal) {
         this.repository = repository;
+        this.repositoryLocal = repositoryLocal;
     }
 
 
@@ -25,7 +28,9 @@ public final class UsersInteractorImpl implements UsersInteractor {
 
     @Override
     public void loginUser(String login, String password, Carry<User> carry) {
-        repository.loginUser(login, password, carry);
+        //repository.loginUser(login, password, carry);
+        repositoryLocal.setUserToken("test_token");
+        carry.onSuccess(new User("77", "test", "test"));
     }
 
     @Override
