@@ -141,6 +141,7 @@ public final class TaskActivity extends BaseActivity implements TaskView {
         //TODO: show task
     }
 
+    @Override
     //TODO: ask
     public void showConfirmationDialog(final Bid bid) {
         AlertDialog.Builder builder;
