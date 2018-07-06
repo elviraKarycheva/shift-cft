@@ -1,9 +1,6 @@
 package ru.ftc.android.shifttemple.features.users.presentation;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -12,15 +9,13 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import java.util.List;
-
 import ru.ftc.android.shifttemple.R;
 import ru.ftc.android.shifttemple.features.BaseActivity;
 import ru.ftc.android.shifttemple.features.MvpPresenter;
 import ru.ftc.android.shifttemple.features.MvpView;
 
 
-public final class UserActivity extends BaseActivity implements UserView {
+public final class UserLoginLoginActivity extends BaseActivity implements UserLoginView {
 
     private ProgressBar progressBar;
     private EditText inputLogin;
@@ -29,7 +24,7 @@ public final class UserActivity extends BaseActivity implements UserView {
     private Button linkRegisterButton;
 
 
-    private UserPresenter presenter;
+    private UserLoginPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +51,7 @@ public final class UserActivity extends BaseActivity implements UserView {
         linkRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(TasksActivity.this, UserActivity.class);
+                //Intent intent = new Intent(TasksActivity.this, UserLoginLoginActivity.class);
 
                 //startActivity(intent);
                 showError("Register later");
@@ -74,7 +69,6 @@ public final class UserActivity extends BaseActivity implements UserView {
     }
 
 
-
     private final TextWatcher loginWatcher = new TextWatcher() {
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -85,7 +79,7 @@ public final class UserActivity extends BaseActivity implements UserView {
         }
 
         public void afterTextChanged(Editable s) {
-            presenter.loginText = s.toString();
+            presenter.onLoginTextChanged(s.toString());
         }
     };
 
@@ -97,12 +91,9 @@ public final class UserActivity extends BaseActivity implements UserView {
         }
 
         public void afterTextChanged(Editable s) {
-            presenter.passwordText = s.toString();
+            presenter.onPasswordTextChanged(s.toString());
         }
     };
-
-
-
 
 
     @Override
@@ -117,11 +108,6 @@ public final class UserActivity extends BaseActivity implements UserView {
         //recyclerView.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void setData(String login, String password) {
-        inputLogin.setText(login);
-        inputPassword.setText(password);
-    }
 
     @Override
     public void showError(String message) {
@@ -129,18 +115,13 @@ public final class UserActivity extends BaseActivity implements UserView {
     }
 
     @Override
-    protected MvpPresenter<UserView> getPresenter() {
-        presenter = PresenterFactory.createPresenter(this);
+    protected MvpPresenter<UserLoginView> getPresenter() {
+        presenter = PresenterFactory.createUserLoginPresenter(this);
         return presenter;
     }
 
     @Override
     protected MvpView getMvpView() {
-        return this;
-    }
-
-    @Override
-    public Context getContext() {
         return this;
     }
 

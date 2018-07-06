@@ -18,7 +18,7 @@ import ru.ftc.android.shifttemple.features.users.domain.UsersInteractorImpl;
 
 
 final class PresenterFactory {
-    static UserPresenter createPresenter(Context context) {
+    static UserLoginPresenter createUserLoginPresenter(Context context) {
         final UsersApi api = App.getRetrofitProvider(context)
                 .getRetrofit()
                 .create(UsersApi.class);
@@ -32,6 +32,6 @@ final class PresenterFactory {
         final UsersRepository repository = new UsersRepositoryImpl(dataSource);
         final UsersInteractor interactor = new UsersInteractorImpl(repository, repositoryLocal);
 
-        return new UserPresenter(interactor);
+        return new UserLoginPresenter(interactor);
     }
 }

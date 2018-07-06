@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".features.books.presentation.BookActivity" />
-        <activity android:name=".features.users.presentation.UserActivity" />
+        <activity android:name=".features.users.presentation.UserLoginLoginActivity" />
     </application>
 
 </manifest>
