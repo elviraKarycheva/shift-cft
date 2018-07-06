@@ -1,6 +1,7 @@
 package ru.ftc.android.shifttemple.features.tasks.presentation;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -23,6 +24,8 @@ import ru.ftc.android.shifttemple.features.users.presentation.UserLoginLoginActi
 
 public final class TaskActivity extends BaseActivity implements TaskView {
 
+    private static final String TASK_ID = "taskId";
+
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView recyclerView;
     //private FloatingActionButton createTaskButton;
@@ -32,6 +35,16 @@ public final class TaskActivity extends BaseActivity implements TaskView {
 
     private String task_id;
 
+    public static void start(Context context, final String task_id){
+        Intent intent = new Intent(context, TaskActivity.class);
+
+        Bundle b = new Bundle();
+        b.putString(TASK_ID, task_id);
+        intent.putExtras(b);
+
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +52,7 @@ public final class TaskActivity extends BaseActivity implements TaskView {
 
         Bundle b = getIntent().getExtras();
         if (b != null)
-            task_id = b.getString("task_id");
+            task_id = b.getString(TASK_ID);
         presenter.setTaskId(task_id);
         initView();
     }

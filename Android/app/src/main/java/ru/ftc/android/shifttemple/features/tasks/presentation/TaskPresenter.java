@@ -14,6 +14,8 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
 
     private String task_id;
 
+    private Boolean taskIsMine = false;
+
     TaskPresenter(TasksInteractor interactor) {
         this.interactor = interactor;
     }
@@ -46,6 +48,25 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
         });
     }
 
+    //TODO: Ask it's norm?
+    private void checkTask(Task task) {
+        interactor.checkTaskIsMine(task, new Carry<Boolean>() {
+            @Override
+            public void onSuccess(Boolean result) {
+                taskIsMine = result;
+                if (!result) {
+                    //showAnswerForm
+                    //hideDeleteButton
+                    //etc
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+            }
+        });
+    }
+
     private void loadTask() {
         view.showProgress();
         interactor.loadTask(task_id, new Carry<Task>() {
@@ -74,6 +95,7 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
 
     void onBidSelected(Bid bid) {
         view.showError("You choose bid from: " + bid.getUserName());
+        //interactor.selectTaskBid
     }
 
 

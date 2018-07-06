@@ -121,12 +121,6 @@ public final class TasksActivity extends BaseActivity implements TasksListView {
 
     @Override
     public void showTask(Task task) {
-        Intent intent = new Intent(TasksActivity.this, TaskActivity.class);
-
-        Bundle b = new Bundle();
-        b.putString("task_id", task.getId());
-        intent.putExtras(b);
-
-        startActivity(intent);
+        TaskActivity.start(this, task.getId());
     }
 }

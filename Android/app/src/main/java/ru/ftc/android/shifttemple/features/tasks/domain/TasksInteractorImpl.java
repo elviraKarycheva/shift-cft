@@ -29,6 +29,14 @@ public final class TasksInteractorImpl implements TasksInteractor {
         return true;
     }
 
+
+    //TODO: Ask it's norm?
+    @Override
+    public void checkTaskIsMine(Task task, Carry<Boolean> carry) {
+        Boolean result = (task.getUserId() == repositoryUsersLocal.getUser().getId());
+        carry.onSuccess(result);
+    }
+
     @Override
     public void loadTasks(Carry<List<Task>> carry) {
         if(!checkUserToken(carry)){

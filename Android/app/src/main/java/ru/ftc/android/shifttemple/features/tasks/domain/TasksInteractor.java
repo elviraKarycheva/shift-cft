@@ -21,4 +21,6 @@ public interface TasksInteractor {
     void loadTaskBids(String id, Carry<List<Bid>> carry);
 
     void createTaskBid(String id, Bid bid, Carry<Bid> carry);
+
+    void checkTaskIsMine(Task task, Carry<Boolean> carry);
 }
