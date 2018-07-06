@@ -7,7 +7,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -32,7 +34,7 @@ public final class TasksActivity extends BaseActivity implements TasksListView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
         setContentView(R.layout.tasks_activity);
 
         initView();
@@ -40,6 +42,20 @@ public final class TasksActivity extends BaseActivity implements TasksListView {
 
 
     private void initView() {
+        // code by @elviraKarycheva
+        LayoutInflater mInflater = LayoutInflater.from(this);
+        View profileButtonView = mInflater.inflate(R.layout.view_actionbar_profile, null);
+        ImageView profileImage = profileButtonView.findViewById(R.id.image);
+        getSupportActionBar().setCustomView(profileButtonView);
+        profileButtonView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Intent intent = new Intent(TasksActivity.this, ProfileActivity.class);
+                //startActivity(intent);
+            }
+        });
+        // code by @elviraKarycheva
+
         mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         recyclerView = findViewById(R.id.tasks_recycle_view);
         createTaskButton = findViewById(R.id.create_task_button);
@@ -71,7 +87,6 @@ public final class TasksActivity extends BaseActivity implements TasksListView {
             public void onTaskLongClick(Task task) {
 
                 presenter.onTaskLongClicked(task);
-
 
 
             }
