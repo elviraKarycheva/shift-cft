@@ -30,15 +30,15 @@ public final class TasksInteractorImpl implements TasksInteractor {
     }
 
 
-    //TODO: Ask it's norm?
-    @Override
-    public void checkTaskIsMine(Task task, Carry<Boolean> carry) {
+
+    private Boolean checkTaskIsMine(Task task) {
         Boolean result = false;
 
         if (repositoryUsersLocal.getUser() != null) {
             result = (task.getUserId() == repositoryUsersLocal.getUser().getId());
         }
-        carry.onSuccess(result);
+
+        return result;
     }
 
     @Override
@@ -50,11 +50,24 @@ public final class TasksInteractorImpl implements TasksInteractor {
     }
 
     @Override
-    public void loadTask(String id, Carry<Task> carry) {
+    public void loadTask(String id, final Carry<Task> carry) {
         if (!checkUserToken(carry)) {
             return;
         }
-        repository.loadTask(id, carry);
+        //TODO: ask it's normal?
+        repository.loadTask(id, new Carry<Task>() {
+            @Override
+            public void onSuccess(Task result) {
+                result.setTaskIsMine(checkTaskIsMine(result));
+                carry.onSuccess(result);
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                carry.onFailure(throwable);
+            }
+        });
+
     }
 
     @Override

@@ -1,5 +1,7 @@
 package ru.ftc.android.shifttemple.features.tasks.presentation;
 
+import android.util.Pair;
+
 import java.util.List;
 
 import ru.ftc.android.shifttemple.exception.NotAuthorizedException;
@@ -48,32 +50,15 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
         });
     }
 
-    //TODO: Ask it's norm?
-    private void checkTask(Task task) {
-        interactor.checkTaskIsMine(task, new Carry<Boolean>() {
-            @Override
-            public void onSuccess(Boolean result) {
-                taskIsMine = result;
-                if (!result) {
-                    //showAnswerForm
-                    //hideDeleteButton
-                    //etc
-                }
-            }
 
-            @Override
-            public void onFailure(Throwable throwable) {
-            }
-        });
-    }
 
     private void loadTask() {
         view.showProgress();
+
         interactor.loadTask(task_id, new Carry<Task>() {
             @Override
             public void onSuccess(Task result) {
                 view.showTask(result);
-                checkTask(result);
                 loadTaskBids();
             }
 
@@ -105,7 +90,7 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
 
 
     void onBidLongClicked(Bid bid) {
-        //view.showError("May be added to favorite.. May be no;)"); // TODO: favorite
+        view.showError("May be added to favorite.. May be no;)"); // TODO: favorite
     }
 
     void setTaskId(final String task_id) {

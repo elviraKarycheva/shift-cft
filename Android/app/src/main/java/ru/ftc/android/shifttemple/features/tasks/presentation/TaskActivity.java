@@ -1,15 +1,16 @@
 package ru.ftc.android.shifttemple.features.tasks.presentation;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -31,11 +32,17 @@ public final class TaskActivity extends BaseActivity implements TaskView {
     //private FloatingActionButton createTaskButton;
     private BidsAdapter adapter;
 
+    private TextView titleView;
+
+    private TextView descriptionView;
+
+    private  TextView dateView;
+
     private TaskPresenter presenter;
 
     private String task_id;
 
-    public static void start(Context context, final String task_id){
+    public static void start(Context context, final String task_id) {
         Intent intent = new Intent(context, TaskActivity.class);
 
         Bundle b = new Bundle();
@@ -71,6 +78,10 @@ public final class TaskActivity extends BaseActivity implements TaskView {
             }
         });
         */
+
+        titleView = findViewById(R.id.task_title);
+        descriptionView = findViewById(R.id.task_description);
+        dateView = findViewById(R.id.task_date);
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -139,19 +150,20 @@ public final class TaskActivity extends BaseActivity implements TaskView {
     @Override
     public void showTask(Task task) {
         //TODO: show task
+        titleView.setText(task.getTitle());
+        descriptionView.setText(task.getDescription());
+        dateView.setText(task.getDate());
     }
 
     @Override
     //TODO: ask
     public void showConfirmationDialog(final Bid bid) {
         AlertDialog.Builder builder;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
-        } else {
-            builder = new AlertDialog.Builder(this);
-        }
+
+        builder = new AlertDialog.Builder(this);
+
         builder.setTitle("Choose bid")
-                .setMessage("Are you sure you want to choose this bid?\n" +  bid.getText())
+                .setMessage("Are you sure you want to choose this bid?\n" + bid.getText())
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         presenter.onBidSelected(bid);
