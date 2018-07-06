@@ -1,10 +1,9 @@
 package ru.ftc.android.shifttemple.features.tasks.presentation;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -16,42 +15,48 @@ import ru.ftc.android.shifttemple.R;
 import ru.ftc.android.shifttemple.features.BaseActivity;
 import ru.ftc.android.shifttemple.features.MvpPresenter;
 import ru.ftc.android.shifttemple.features.MvpView;
+import ru.ftc.android.shifttemple.features.tasks.domain.model.Bid;
 import ru.ftc.android.shifttemple.features.tasks.domain.model.Task;
 import ru.ftc.android.shifttemple.features.users.presentation.UserLoginLoginActivity;
 
-public final class TasksActivity extends BaseActivity implements TasksListView {
+public final class TaskActivity extends BaseActivity implements TaskView {
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView recyclerView;
-    private FloatingActionButton createTaskButton;
-    private TasksAdapter adapter;
+    //private FloatingActionButton createTaskButton;
+    private BidsAdapter adapter;
 
-    private TasksListPresenter presenter;
+    private TaskPresenter presenter;
+
+    private String task_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_task);
 
-
-        setContentView(R.layout.tasks_activity);
-
+        Bundle b = getIntent().getExtras();
+        if(b != null)
+            task_id = b.getString("task_id");
         initView();
     }
 
 
     private void initView() {
-        mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
-        recyclerView = findViewById(R.id.tasks_recycle_view);
-        createTaskButton = findViewById(R.id.create_task_button);
+        showError(task_id);
+        //mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        //recyclerView = findViewById(R.id.tasks_recycle_view);
+        //createTaskButton = findViewById(R.id.create_task_button);
 
-        createTaskButton.setOnClickListener(new View.OnClickListener() {
+        /*createTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.onCreateTaskClicked();
             }
         });
+        */
 
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+       /* mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // Refresh items
@@ -59,41 +64,38 @@ public final class TasksActivity extends BaseActivity implements TasksListView {
             }
         });
 
-        adapter = new TasksAdapter(this, new TasksAdapter.SelectTaskListener() {
+        adapter = new BidsAdapter(this, new BidsAdapter.SelectBidListener() {
             @Override
-            public void onTaskSelect(Task task) {
-                presenter.onTaskSelected(task);
+            public void onBidSelect(Bid bid) {
+                //
             }
 
             @Override
-            public void onTaskLongClick(Task task) {
-
-                presenter.onTaskLongClicked(task);
-
-
-
+            public void onBidLongClick(Bid bid) {
+                //
             }
         });
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        */
     }
 
     @Override
     public void showProgress() {
-        mSwipeRefreshLayout.setRefreshing(true);
-        recyclerView.setVisibility(View.GONE);
+        //mSwipeRefreshLayout.setRefreshing(true);
+        //recyclerView.setVisibility(View.GONE);
     }
 
     @Override
     public void hideProgress() {
-        mSwipeRefreshLayout.setRefreshing(false);
-        recyclerView.setVisibility(View.VISIBLE);
+        //mSwipeRefreshLayout.setRefreshing(false);
+        //recyclerView.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void showTaskList(List<Task> list) {
-        adapter.setTasks(list);
+    public void showBidList(List<Bid> list) {
+        //adapter.setBids(list);
     }
 
     @Override
@@ -102,8 +104,8 @@ public final class TasksActivity extends BaseActivity implements TasksListView {
     }
 
     @Override
-    protected MvpPresenter<TasksListView> getPresenter() {
-        presenter = PresenterFactory.createTaskListPresenter(this);
+    protected MvpPresenter<TaskView> getPresenter() {
+        presenter = PresenterFactory.createTaskPresenter(this);
         return presenter;
     }
 
@@ -114,19 +116,7 @@ public final class TasksActivity extends BaseActivity implements TasksListView {
 
     @Override
     public void showLoginForm() {
-        Intent intent = new Intent(TasksActivity.this, UserLoginLoginActivity.class);
-
-        startActivity(intent);
-    }
-
-    @Override
-    public void showTask(Task task) {
-        Intent intent = new Intent(TasksActivity.this, TaskActivity.class);
-
-        Bundle b = new Bundle();
-        b.putString("task_id", task.getId());
-        intent.putExtras(b);
-
+        Intent intent = new Intent(TaskActivity.this, UserLoginLoginActivity.class);
         startActivity(intent);
     }
 }

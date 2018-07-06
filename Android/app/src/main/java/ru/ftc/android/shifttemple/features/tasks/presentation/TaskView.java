@@ -1,6 +1,5 @@
 package ru.ftc.android.shifttemple.features.tasks.presentation;
 
-import android.content.Context;
 
 import java.util.List;
 
@@ -16,6 +15,8 @@ interface TaskView extends MvpView {
     void showBidList(List<Bid> list);
 
     void showError(String message);
+
+    void showLoginForm();
 
 
 }

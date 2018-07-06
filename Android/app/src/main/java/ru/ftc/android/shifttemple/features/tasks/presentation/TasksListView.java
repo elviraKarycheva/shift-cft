@@ -20,6 +20,6 @@ interface TasksListView extends MvpView {
 
     void showLoginForm();
 
-    Context getContext();
+    void showTask(Task task);
 
 }

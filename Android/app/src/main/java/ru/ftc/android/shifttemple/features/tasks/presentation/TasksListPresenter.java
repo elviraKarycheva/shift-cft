@@ -57,7 +57,9 @@ final class TasksListPresenter extends MvpPresenter<TasksListView> {
 
     void onTaskSelected(Task task) {
         view.showProgress();
-        interactor.loadTask(task.getId(), new Carry<Task>() {
+        view.showTask(task);
+        view.hideProgress();
+        /*interactor.loadTask(task.getId(), new Carry<Task>() {
 
             @Override
             public void onSuccess(Task result) {
@@ -73,6 +75,7 @@ final class TasksListPresenter extends MvpPresenter<TasksListView> {
             }
 
         });
+        */
     }
 
     void onTaskLongClicked(Task task) {

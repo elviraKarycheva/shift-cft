@@ -1,10 +1,9 @@
 <resources>
-    <string name="app_name">Бюро добрых дел</string>
-    <string name="create_button">Создать</string>
+    <string name="app_name">Bureau of Good Deeds</string>
+    <string name="create_button">create</string>
 
 
     <string name="user_settings_key">user</string>
-    <string name="query_token_name">token_tm</string>
 
     <string name="action_settings">Settings</string>
 </resources>
