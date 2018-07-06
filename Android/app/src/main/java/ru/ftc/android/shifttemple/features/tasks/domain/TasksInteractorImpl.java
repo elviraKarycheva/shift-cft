@@ -21,8 +21,8 @@ public final class TasksInteractorImpl implements TasksInteractor {
         this.repositoryUsersLocal = repositoryUsersLocal;
     }
 
-    private Boolean checkUserToken(final Carry carry){
-        if(repositoryUsersLocal.getUserToken().isEmpty()){
+    private Boolean checkUserToken(final Carry carry) {
+        if (repositoryUsersLocal.getUserToken().isEmpty()) {
             carry.onFailure(new NotAuthorizedException());
             return false;
         }
@@ -33,13 +33,17 @@ public final class TasksInteractorImpl implements TasksInteractor {
     //TODO: Ask it's norm?
     @Override
     public void checkTaskIsMine(Task task, Carry<Boolean> carry) {
-        Boolean result = (task.getUserId() == repositoryUsersLocal.getUser().getId());
+        Boolean result = false;
+
+        if (repositoryUsersLocal.getUser() != null) {
+            result = (task.getUserId() == repositoryUsersLocal.getUser().getId());
+        }
         carry.onSuccess(result);
     }
 
     @Override
     public void loadTasks(Carry<List<Task>> carry) {
-        if(!checkUserToken(carry)){
+        if (!checkUserToken(carry)) {
             return;
         }
         repository.loadTasks(carry);
@@ -47,7 +51,7 @@ public final class TasksInteractorImpl implements TasksInteractor {
 
     @Override
     public void loadTask(String id, Carry<Task> carry) {
-        if(!checkUserToken(carry)){
+        if (!checkUserToken(carry)) {
             return;
         }
         repository.loadTask(id, carry);
@@ -56,7 +60,7 @@ public final class TasksInteractorImpl implements TasksInteractor {
     @Override
     public void createTask(Task task, Carry<Task> carry) {
         repositoryUsersLocal.setUserToken("");
-        if(!checkUserToken(carry)){
+        if (!checkUserToken(carry)) {
             return;
         }
         repository.createTask(task, carry);
@@ -64,7 +68,7 @@ public final class TasksInteractorImpl implements TasksInteractor {
 
     @Override
     public void deleteTask(String id, Carry<Success> carry) {
-        if(!checkUserToken(carry)){
+        if (!checkUserToken(carry)) {
             return;
         }
         repository.deleteTask(id, carry);
@@ -72,7 +76,7 @@ public final class TasksInteractorImpl implements TasksInteractor {
 
     @Override
     public void createTaskBid(String id, Bid bid, Carry<Bid> carry) {
-        if(!checkUserToken(carry)){
+        if (!checkUserToken(carry)) {
             return;
         }
         repository.createTaskBid(id, bid, carry);
@@ -80,7 +84,7 @@ public final class TasksInteractorImpl implements TasksInteractor {
 
     @Override
     public void loadTaskBids(String id, Carry<List<Bid>> carry) {
-        if(!checkUserToken(carry)){
+        if (!checkUserToken(carry)) {
             return;
         }
         repository.loadTaskBids(id, carry);

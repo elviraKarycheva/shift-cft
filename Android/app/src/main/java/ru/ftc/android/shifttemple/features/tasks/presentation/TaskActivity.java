@@ -83,7 +83,7 @@ public final class TaskActivity extends BaseActivity implements TaskView {
         adapter = new BidsAdapter(this, new BidsAdapter.SelectBidListener() {
             @Override
             public void onBidSelect(Bid bid) {
-                showConfirmationDialog(bid);
+                presenter.onBidSelected(bid);
             }
 
             @Override

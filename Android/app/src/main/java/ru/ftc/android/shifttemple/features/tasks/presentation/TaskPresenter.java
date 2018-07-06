@@ -14,7 +14,7 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
 
     private String task_id;
 
-    private Boolean taskIsMine = false;
+    private Boolean taskIsMine = true;
 
     TaskPresenter(TasksInteractor interactor) {
         this.interactor = interactor;
@@ -73,6 +73,7 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
             @Override
             public void onSuccess(Task result) {
                 view.showTask(result);
+                checkTask(result);
                 loadTaskBids();
             }
 
@@ -94,7 +95,11 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
     }
 
     void onBidSelected(Bid bid) {
-        view.showError("You choose bid from: " + bid.getUserName());
+        if(taskIsMine){
+            return;
+        }
+        view.showConfirmationDialog(bid);
+        //view.showError("You choose bid from: " + bid.getUserName());
         //interactor.selectTaskBid
     }
 
