@@ -1,8 +1,10 @@
 package ru.ftc.android.shifttemple.features.tasks.presentation;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,19 +35,20 @@ public final class TaskActivity extends BaseActivity implements TaskView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task);
+        setContentView(R.layout.task_activity);
 
         Bundle b = getIntent().getExtras();
-        if(b != null)
+        if (b != null)
             task_id = b.getString("task_id");
+        presenter.setTaskId(task_id);
         initView();
     }
 
 
     private void initView() {
-        showError(task_id);
-        //mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
-        //recyclerView = findViewById(R.id.tasks_recycle_view);
+        //showError(task_id);
+        mSwipeRefreshLayout = findViewById(R.id.bids_swipeRefreshLayout);
+        recyclerView = findViewById(R.id.bids_recycle_view);
         //createTaskButton = findViewById(R.id.create_task_button);
 
         /*createTaskButton.setOnClickListener(new View.OnClickListener() {
@@ -56,46 +59,46 @@ public final class TaskActivity extends BaseActivity implements TaskView {
         });
         */
 
-       /* mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // Refresh items
-                presenter.onRefreshTasks();
+                presenter.onRefreshTask();
             }
         });
 
         adapter = new BidsAdapter(this, new BidsAdapter.SelectBidListener() {
             @Override
             public void onBidSelect(Bid bid) {
-                //
+                showConfirmationDialog(bid);
             }
 
             @Override
             public void onBidLongClick(Bid bid) {
-                //
+                presenter.onBidLongClicked(bid);
             }
         });
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        */
+
     }
 
     @Override
     public void showProgress() {
-        //mSwipeRefreshLayout.setRefreshing(true);
-        //recyclerView.setVisibility(View.GONE);
+        mSwipeRefreshLayout.setRefreshing(true);
+        recyclerView.setVisibility(View.GONE);
     }
 
     @Override
     public void hideProgress() {
-        //mSwipeRefreshLayout.setRefreshing(false);
-        //recyclerView.setVisibility(View.VISIBLE);
+        mSwipeRefreshLayout.setRefreshing(false);
+        recyclerView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showBidList(List<Bid> list) {
-        //adapter.setBids(list);
+        adapter.setBids(list);
     }
 
     @Override
@@ -118,5 +121,30 @@ public final class TaskActivity extends BaseActivity implements TaskView {
     public void showLoginForm() {
         Intent intent = new Intent(TaskActivity.this, UserLoginLoginActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void showTask(Task task) {
+        //TODO: show task
+    }
+
+    //TODO: ask
+    public void showConfirmationDialog(final Bid bid) {
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(this);
+        }
+        builder.setTitle("Choose bid")
+                .setMessage("Are you sure you want to choose this bid?\n" +  bid.getText())
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        presenter.onBidSelected(bid);
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 }
