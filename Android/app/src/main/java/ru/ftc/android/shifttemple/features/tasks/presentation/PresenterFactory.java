@@ -16,36 +16,27 @@ import ru.ftc.android.shifttemple.features.users.data.UsersLocalRepository;
 import ru.ftc.android.shifttemple.features.users.data.UsersLocalRepositoryImpl;
 
 final class PresenterFactory {
-    static TasksListPresenter createTaskListPresenter(Context context) {
+
+    private static TasksInteractor createTasksInteractor(Context context) {
+
         final TasksApi api = App.getRetrofitProvider(context)
                 .getRetrofit()
                 .create(TasksApi.class);
-
 
         final UsersLocalDataSource usersDataSourceLocal = new UsersLocalDataSourceImpl(context);
         final UsersLocalRepository usersRepositoryLocal = new UsersLocalRepositoryImpl(usersDataSourceLocal);
 
         final TasksDataSource dataSource = new TasksDataSourceImpl(api);
         final TasksRepository repository = new TasksRepositoryImpl(dataSource);
-        final TasksInteractor interactor = new TasksInteractorImpl(repository, usersRepositoryLocal);
+        return new TasksInteractorImpl(repository, usersRepositoryLocal);
+    }
 
-        return new TasksListPresenter(interactor);
+    static TasksListPresenter createTaskListPresenter(Context context) {
+        return new TasksListPresenter(createTasksInteractor(context));
     }
 
 
     static TaskPresenter createTaskPresenter(Context context) {
-        final TasksApi api = App.getRetrofitProvider(context)
-                .getRetrofit()
-                .create(TasksApi.class);
-
-
-        final UsersLocalDataSource usersDataSourceLocal = new UsersLocalDataSourceImpl(context);
-        final UsersLocalRepository usersRepositoryLocal = new UsersLocalRepositoryImpl(usersDataSourceLocal);
-
-        final TasksDataSource dataSource = new TasksDataSourceImpl(api);
-        final TasksRepository repository = new TasksRepositoryImpl(dataSource);
-        final TasksInteractor interactor = new TasksInteractorImpl(repository, usersRepositoryLocal);
-
-        return new TaskPresenter(interactor);
+        return new TaskPresenter(createTasksInteractor(context));
     }
 }
