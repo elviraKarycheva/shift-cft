@@ -29,18 +29,19 @@ public final class TaskActivity extends BaseActivity implements TaskView {
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView recyclerView;
-    //private FloatingActionButton createTaskButton;
+
     private BidsAdapter adapter;
 
     private TextView titleView;
 
     private TextView descriptionView;
 
-    private  TextView dateView;
+    private TextView dateView;
 
     private TaskPresenter presenter;
 
     private String task_id;
+
 
     public static void start(Context context, final String task_id) {
         Intent intent = new Intent(context, TaskActivity.class);
@@ -101,6 +102,11 @@ public final class TaskActivity extends BaseActivity implements TaskView {
             public void onBidLongClick(Bid bid) {
                 presenter.onBidLongClicked(bid);
             }
+
+            @Override
+            public void onBidFinishTaskClicked(Bid bid) {
+                showError("It time to finish");
+            }
         });
 
         recyclerView.setAdapter(adapter);
@@ -150,6 +156,7 @@ public final class TaskActivity extends BaseActivity implements TaskView {
     @Override
     public void showTask(Task task) {
         //TODO: show task
+        adapter.setTask(task);
         titleView.setText(task.getTitle());
         descriptionView.setText(task.getDescription());
         dateView.setText(task.getDate());
