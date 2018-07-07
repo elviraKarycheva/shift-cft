@@ -60,48 +60,15 @@ final class TasksListPresenter extends MvpPresenter<TasksListView> {
         view.showProgress();
         view.showTask(task);
         view.hideProgress();
-        /*interactor.loadTask(task.getId(), new Carry<Task>() {
-
-            @Override
-            public void onSuccess(Task result) {
-                view.hideProgress();
-                // do something
-                view.showError(result.getStatus());
-            }
-
-            @Override
-            public void onFailure(Throwable throwable) {
-                view.hideProgress();
-                view.showError(throwable.getMessage());
-            }
-
-        });
-        */
     }
 
     void onTaskLongClicked(Task task) {
         view.showError("May be added to favorite.. May be no;)"); // TODO: favorite
     }
 
-    private final AtomicInteger atomicInteger = new AtomicInteger();
 
     public void onCreateTaskClicked() {
-        int id = atomicInteger.incrementAndGet();
-        String name = "Name_" + id;
-        String author = "Kolsha_" + id;
-        int pages = 7 * id;
-
-        Task Task = new Task(name, author, String.valueOf(pages));
-        interactor.createTask(Task, new Carry<Task>() {
-            @Override
-            public void onSuccess(Task result) {
-                loadTasks();
-            }
-
-            @Override
-            public void onFailure(Throwable throwable) {
-                view.showError(throwable.getMessage());
-            }
-        });
+        view.showNewTaskForm();
+        loadTasks();
     }
 }

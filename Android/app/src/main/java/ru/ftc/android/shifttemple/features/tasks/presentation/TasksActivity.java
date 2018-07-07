@@ -41,6 +41,12 @@ public final class TasksActivity extends BaseActivity implements TasksListView {
     }
 
 
+    @Override
+    public void showNewTaskForm() {
+        Intent intent = new Intent(TasksActivity.this, NewTaskActivity.class);
+        startActivity(intent);
+    }
+
     private void initView() {
         // code by @elviraKarycheva
         LayoutInflater mInflater = LayoutInflater.from(this);
@@ -63,9 +69,8 @@ public final class TasksActivity extends BaseActivity implements TasksListView {
         createTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TasksActivity.this, NewTaskActivity.class);
-                startActivity(intent);
-                //presenter.onCreateTaskClicked();
+
+                presenter.onCreateTaskClicked();
             }
         });
 
@@ -137,6 +142,6 @@ public final class TasksActivity extends BaseActivity implements TasksListView {
 
     @Override
     public void showTask(Task task) {
-        TaskActivity.start(this, task.getId());
+        TaskActivity.start(this, task);
     }
 }

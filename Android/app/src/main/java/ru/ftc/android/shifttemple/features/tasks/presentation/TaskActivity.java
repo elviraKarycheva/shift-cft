@@ -43,11 +43,11 @@ public final class TaskActivity extends BaseActivity implements TaskView {
     private String task_id;
 
 
-    public static void start(Context context, final String task_id) {
+    public static void start(Context context, Task task) {
         Intent intent = new Intent(context, TaskActivity.class);
 
         Bundle b = new Bundle();
-        b.putString(TASK_ID, task_id);
+        b.putString(TASK_ID, task.getId());
         intent.putExtras(b);
 
         context.startActivity(intent);

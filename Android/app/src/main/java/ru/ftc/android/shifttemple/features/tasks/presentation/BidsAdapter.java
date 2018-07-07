@@ -83,7 +83,7 @@ final class BidsAdapter extends RecyclerView.Adapter<BidsAdapter.BidHolder> {
 
             bidFinishTask.setVisibility(View.GONE);
 
-            ((View)bidUserNameView.getParent()).setBackgroundColor(Color.GRAY);
+            ((View)bidUserNameView.getParent()).setBackgroundColor(Color.WHITE);
 
             if (task != null // TODO: && task.getTaskIsMine()
                              && task.getIdSelectedBid() != null

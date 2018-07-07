@@ -72,7 +72,6 @@ public final class TasksInteractorImpl implements TasksInteractor {
 
     @Override
     public void createTask(Task task, Carry<Task> carry) {
-        repositoryUsersLocal.setUserToken("");
         if (!checkUserToken(carry)) {
             return;
         }
