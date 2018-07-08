@@ -26,6 +26,13 @@
       "user_name": "Ivan Ivanovich",
       "text": "Super Task",
       "date": "json_date_format_here"
+      /* Эти поля  выводятся если заявка выбрана как исполнитель */
+      ,
+      "phone": "1113123",
+      "vk_link": "may be",
+      "tg_link": "may be",
+      "email": "may be",
+      /* Эти поля  выводятся если заявка выбрана как исполнитель */
     }
     ]
 
