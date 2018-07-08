@@ -9,7 +9,10 @@ POST /tasks - разместить задачу
 POST /tasks/{id}/bids - разместить заявку к задаче
 
 
+POST /tasks/{id}/bids/choose - выбрать заявку как исполнителя
 
+
+POST /tasks/{id}/finish - Завершить таск
 
 
 POST /users/register - регистрация

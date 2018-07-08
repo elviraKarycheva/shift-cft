@@ -9,7 +9,8 @@ public final class User {
     private String email;
     private long karma;
 
-    public User(String name, String phone) {
+    public User(String user_id, String name, String phone) {
+        this.user_id = user_id;
         this.name = name;
         this.phone = phone;
 

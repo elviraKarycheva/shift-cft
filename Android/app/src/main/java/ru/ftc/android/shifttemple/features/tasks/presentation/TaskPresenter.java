@@ -6,6 +6,7 @@ import java.util.List;
 
 import ru.ftc.android.shifttemple.exception.NotAuthorizedException;
 import ru.ftc.android.shifttemple.features.MvpPresenter;
+import ru.ftc.android.shifttemple.features.books.domain.model.Success;
 import ru.ftc.android.shifttemple.features.tasks.domain.TasksInteractor;
 import ru.ftc.android.shifttemple.features.tasks.domain.model.Bid;
 import ru.ftc.android.shifttemple.features.tasks.domain.model.Task;
@@ -21,7 +22,6 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
     private Boolean taskIsMine = true;
 
     private Boolean canIAnswer = false; //TODO: check can i answer
-
 
 
     TaskPresenter(TasksInteractor interactor) {
@@ -92,12 +92,45 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
         view.showConfirmationDialog(bid);
     }
 
-    void onBidChoosed(Bid bid){
+    void onBidChoosed(Bid bid) {
         view.showProgress();
 
-        // TODO: rename to chooseTaskBid and impl methods
-        return ;
-        /*
+        interactor.chooseTaskBid(task_id, bid, new Carry<Success>() {
+            @Override
+            public void onSuccess(Success result) {
+                view.hideProgress();
+                view.showError("Bid choosed");
+                loadTask();
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                view.hideProgress();
+                view.showError(throwable.getMessage());
+            }
+        });
+
+    }
+
+
+    void onBidLongClicked(Bid bid) {
+        view.showError("May be added to favorite.. May be no;)"); // TODO: favorite
+    }
+
+    void setTaskId(final String task_id) {
+        this.task_id = task_id;
+    }
+
+
+    void onCreateBidClicked() {
+        view.showInputBidTextDialog();
+    }
+
+    void onBidTextEntered(final String text) {
+        view.showProgress();
+
+        final Bid bid = new Bid(task_id, text);
+
         interactor.createTaskBid(task_id, bid, new Carry<Bid>() {
             @Override
             public void onSuccess(Bid result) {
@@ -112,33 +145,16 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
                 view.showError(throwable.getMessage());
             }
         });
-        */
     }
 
 
-    void onBidLongClicked(Bid bid) {
-        view.showError("May be added to favorite.. May be no;)"); // TODO: favorite
-    }
-
-    void setTaskId(final String task_id) {
-        this.task_id = task_id;
-    }
-
-
-    void onCreateBidClicked(){
-        view.showInputBidTextDialog();
-    }
-
-    void onBidTextEntered(final String text){
+    void onBidFinishTaskClicked(Bid bid) {
         view.showProgress();
 
-        final Bid bid = new Bid(task_id, text);
-
-        interactor.createTaskBid(task_id, bid, new Carry<Bid>() {
+        interactor.finishTask(task_id, new Carry<Success>() {
             @Override
-            public void onSuccess(Bid result) {
+            public void onSuccess(Success result) {
                 view.hideProgress();
-                view.showError("Bid added");
                 loadTask();
             }
 

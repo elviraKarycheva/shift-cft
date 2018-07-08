@@ -22,4 +22,8 @@ public interface TasksInteractor {
 
     void createTaskBid(String id, Bid bid, Carry<Bid> carry);
 
+    void chooseTaskBid(String id, Bid bid, Carry<Success> carry);
+
+    void finishTask(String id, Carry<Success> carry);
+
 }

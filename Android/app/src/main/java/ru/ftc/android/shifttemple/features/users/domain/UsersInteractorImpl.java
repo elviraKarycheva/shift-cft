@@ -29,8 +29,11 @@ public final class UsersInteractorImpl implements UsersInteractor {
     @Override
     public void loginUser(String login, String password, Carry<User> carry) {
         //repository.loginUser(login, password, carry);
+        //TODO: change on server response
         repositoryLocal.setUserToken("test_token");
-        carry.onSuccess(new User("77", "test", "test"));
+        final User user = new User("1", "Ivan", "7812342424");
+        repositoryLocal.setUser(user);
+        carry.onSuccess(user);
     }
 
     @Override

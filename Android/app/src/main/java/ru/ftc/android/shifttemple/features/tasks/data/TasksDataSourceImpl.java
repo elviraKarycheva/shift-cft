@@ -41,6 +41,16 @@ public final class TasksDataSourceImpl implements TasksDataSource {
     }
 
     @Override
+    public void finishTask(String id, Carry<Success> carry) {
+        tasksApi.finishTask(id).enqueue(new DefaultCallback(carry));
+    }
+
+    @Override
+    public void chooseTaskBid(String id, Bid bid, Carry<Success> carry) {
+        tasksApi.chooseTaskBid(id, bid).enqueue(new DefaultCallback(carry));
+    }
+
+    @Override
     public void createTaskBid(String id, Bid bid, Carry<Bid> carry) {
         tasksApi.createTaskBid(id, bid).enqueue(new DefaultCallback(carry));
     }

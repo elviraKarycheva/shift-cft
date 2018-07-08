@@ -109,7 +109,7 @@ public final class TaskActivity extends BaseActivity implements TaskView {
 
             @Override
             public void onBidFinishTaskClicked(Bid bid) {
-                showError("It time to finish");
+                presenter.onBidFinishTaskClicked(bid);
             }
         });
 
@@ -197,7 +197,7 @@ public final class TaskActivity extends BaseActivity implements TaskView {
                 .setMessage("Input your answer please:")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                       presenter.onBidTextEntered(input.getText().toString());
+                        presenter.onBidTextEntered(input.getText().toString());
                     }
                 })
                 .setNegativeButton(android.R.string.no, null)

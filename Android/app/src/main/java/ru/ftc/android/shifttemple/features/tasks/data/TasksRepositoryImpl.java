@@ -44,4 +44,14 @@ public final class TasksRepositoryImpl implements TasksRepository {
     public void createTaskBid(String id, Bid bid, Carry<Bid> carry) {
         dataSource.createTaskBid(id, bid, carry);
     }
+
+    @Override
+    public void finishTask(String id, Carry<Success> carry) {
+        dataSource.finishTask(id, carry);
+    }
+
+    @Override
+    public void chooseTaskBid(String id, Bid bid, Carry<Success> carry) {
+        dataSource.chooseTaskBid(id, bid, carry);
+    }
 }
