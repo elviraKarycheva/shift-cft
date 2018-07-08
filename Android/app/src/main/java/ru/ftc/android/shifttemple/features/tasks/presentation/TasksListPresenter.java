@@ -13,6 +13,7 @@ import ru.ftc.android.shifttemple.features.MvpPresenter;
 import ru.ftc.android.shifttemple.features.books.domain.model.Success;
 import ru.ftc.android.shifttemple.features.tasks.domain.TasksInteractor;
 import ru.ftc.android.shifttemple.features.tasks.domain.model.Task;
+import ru.ftc.android.shifttemple.features.users.domain.model.User;
 import ru.ftc.android.shifttemple.network.Carry;
 
 final class TasksListPresenter extends MvpPresenter<TasksListView> {
@@ -24,7 +25,25 @@ final class TasksListPresenter extends MvpPresenter<TasksListView> {
 
     @Override
     protected void onViewReady() {
+        loadUserInfo();
         loadTasks();
+    }
+
+    private void loadUserInfo() {
+        view.showProgress();
+        interactor.loadLocalUser(new Carry<User>() {
+            @Override
+            public void onSuccess(User result) {
+                view.showUserInfo(result);
+                view.hideProgress();
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                view.hideProgress();
+                view.showError(throwable.getMessage());
+            }
+        });
     }
 
     private void loadTasks() {

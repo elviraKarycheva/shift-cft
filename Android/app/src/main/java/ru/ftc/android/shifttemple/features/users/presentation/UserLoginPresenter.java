@@ -8,8 +8,8 @@ import ru.ftc.android.shifttemple.network.Carry;
 
 final class UserLoginPresenter extends MvpPresenter<UserLoginView> {
 
-    private String loginText;
-    private String passwordText;
+    private String loginText = "";
+    private String passwordText = "";
     private final UsersInteractor interactor;
 
     UserLoginPresenter(UsersInteractor interactor) {
@@ -18,6 +18,7 @@ final class UserLoginPresenter extends MvpPresenter<UserLoginView> {
 
     @Override
     protected void onViewReady() {
+        interactor.logoutUser();
         view.hideProgress();
     }
 

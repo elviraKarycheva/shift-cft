@@ -37,6 +37,12 @@ public final class UsersInteractorImpl implements UsersInteractor {
     }
 
     @Override
+    public void logoutUser() {
+        repositoryLocal.setUserToken("");
+        repositoryLocal.setUser(null);
+    }
+
+    @Override
     public void createUser(String login, String password, User user, Carry<User> carry) {
         repository.createUser(login, password, user, carry);
     }

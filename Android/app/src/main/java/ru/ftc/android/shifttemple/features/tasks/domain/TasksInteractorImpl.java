@@ -3,11 +3,13 @@ package ru.ftc.android.shifttemple.features.tasks.domain;
 import java.util.List;
 
 import ru.ftc.android.shifttemple.exception.NotAuthorizedException;
+import ru.ftc.android.shifttemple.exception.UnknownException;
 import ru.ftc.android.shifttemple.features.books.domain.model.Success;
 import ru.ftc.android.shifttemple.features.tasks.data.TasksRepository;
 import ru.ftc.android.shifttemple.features.tasks.domain.model.Bid;
 import ru.ftc.android.shifttemple.features.tasks.domain.model.Task;
 import ru.ftc.android.shifttemple.features.users.data.UsersLocalRepository;
+import ru.ftc.android.shifttemple.features.users.domain.model.User;
 import ru.ftc.android.shifttemple.network.Carry;
 
 public final class TasksInteractorImpl implements TasksInteractor {
@@ -116,5 +118,15 @@ public final class TasksInteractorImpl implements TasksInteractor {
             return;
         }
         repository.loadTaskBids(id, carry);
+    }
+
+    @Override
+    public void loadLocalUser(Carry<User> carry) {
+        final User user = repositoryUsersLocal.getUser();
+        if(user != null) {
+            carry.onSuccess(user);
+        } else {
+            carry.onFailure(new UnknownException("Empty local user"));
+        }
     }
 }

@@ -7,6 +7,7 @@ import java.util.List;
 
 import ru.ftc.android.shifttemple.features.MvpView;
 import ru.ftc.android.shifttemple.features.tasks.domain.model.Task;
+import ru.ftc.android.shifttemple.features.users.domain.model.User;
 
 interface TasksListView extends MvpView {
 
@@ -23,5 +24,7 @@ interface TasksListView extends MvpView {
     void showNewTaskForm();
 
     void showTask(Task task);
+
+    void showUserInfo(User user);
 
 }

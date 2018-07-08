@@ -15,4 +15,6 @@ public interface UsersInteractor {
     void checkUserToken(String token, Carry<Success> carry);
 
     void loginUser(String login, String password, Carry<User> carry);
+
+    void logoutUser();
 }
