@@ -16,7 +16,13 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
 
     private String task_id;
 
+    private Task task;
+
     private Boolean taskIsMine = true;
+
+    private Boolean canIAnswer = false; //TODO: check can i answer
+
+
 
     TaskPresenter(TasksInteractor interactor) {
         this.interactor = interactor;
@@ -51,7 +57,6 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
     }
 
 
-
     private void loadTask() {
         view.showProgress();
 
@@ -59,6 +64,7 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
             @Override
             public void onSuccess(Task result) {
                 view.showTask(result);
+                task = result;
                 loadTaskBids();
             }
 
@@ -80,12 +86,33 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
     }
 
     void onBidSelected(Bid bid) {
-        if(taskIsMine){
+        if (!taskIsMine || (task.getIdSelectedBid() != null && !task.getIdSelectedBid().equals("0"))) {
             return;
         }
         view.showConfirmationDialog(bid);
-        //view.showError("You choose bid from: " + bid.getUserName());
-        //interactor.selectTaskBid
+    }
+
+    void onBidChoosed(Bid bid){
+        view.showProgress();
+
+        // TODO: rename to chooseTaskBid and impl methods
+        return ;
+        /*
+        interactor.createTaskBid(task_id, bid, new Carry<Bid>() {
+            @Override
+            public void onSuccess(Bid result) {
+                view.hideProgress();
+                view.showError("Bid added");
+                loadTask();
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                view.hideProgress();
+                view.showError(throwable.getMessage());
+            }
+        });
+        */
     }
 
 
@@ -95,6 +122,32 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
 
     void setTaskId(final String task_id) {
         this.task_id = task_id;
+    }
+
+
+    void onCreateBidClicked(){
+        view.showInputBidTextDialog();
+    }
+
+    void onBidTextEntered(final String text){
+        view.showProgress();
+
+        final Bid bid = new Bid(task_id, text);
+
+        interactor.createTaskBid(task_id, bid, new Carry<Bid>() {
+            @Override
+            public void onSuccess(Bid result) {
+                view.hideProgress();
+                view.showError("Bid added");
+                loadTask();
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                view.hideProgress();
+                view.showError(throwable.getMessage());
+            }
+        });
     }
 
 

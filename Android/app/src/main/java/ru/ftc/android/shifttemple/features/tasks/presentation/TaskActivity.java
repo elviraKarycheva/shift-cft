@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +40,8 @@ public final class TaskActivity extends BaseActivity implements TaskView {
     private TextView descriptionView;
 
     private TextView dateView;
+
+    private FloatingActionButton createBidButton;
 
     private TaskPresenter presenter;
 
@@ -70,15 +75,14 @@ public final class TaskActivity extends BaseActivity implements TaskView {
         //showError(task_id);
         mSwipeRefreshLayout = findViewById(R.id.bids_swipeRefreshLayout);
         recyclerView = findViewById(R.id.bids_recycle_view);
-        //createTaskButton = findViewById(R.id.create_task_button);
+        createBidButton = findViewById(R.id.create_bid_button);
 
-        /*createTaskButton.setOnClickListener(new View.OnClickListener() {
+        createBidButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.onCreateTaskClicked();
+                presenter.onCreateBidClicked();
             }
         });
-        */
 
         titleView = findViewById(R.id.task_title);
         descriptionView = findViewById(R.id.task_description);
@@ -165,15 +169,35 @@ public final class TaskActivity extends BaseActivity implements TaskView {
     @Override
     //TODO: ask
     public void showConfirmationDialog(final Bid bid) {
-        AlertDialog.Builder builder;
 
-        builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle("Choose bid")
                 .setMessage("Are you sure you want to choose this bid?\n" + bid.getText())
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        presenter.onBidSelected(bid);
+                        presenter.onBidChoosed(bid);
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+    @Override
+    public void showInputBidTextDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+
+        builder.setTitle("Create Bid Answer")
+                .setView(input)
+                .setMessage("Input your answer please:")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                       presenter.onBidTextEntered(input.getText().toString());
                     }
                 })
                 .setNegativeButton(android.R.string.no, null)
