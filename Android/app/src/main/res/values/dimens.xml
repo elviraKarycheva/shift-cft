@@ -6,5 +6,11 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="space_normal">16dp</dimen>
+    <dimen name="login_activity_padding">20dp</dimen>
+    <dimen name="login_between_buttons_margin">3dp</dimen>
+    <dimen name="login_login_button_margin">50dp</dimen>
+    <dimen name="new_task_fields_width">20dp</dimen>
+    <dimen name="new_task_button_margin">20dp</dimen>
+
 
 </resources>
