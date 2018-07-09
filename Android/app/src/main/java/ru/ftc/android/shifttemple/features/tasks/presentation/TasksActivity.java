@@ -22,6 +22,7 @@ import ru.ftc.android.shifttemple.features.MvpView;
 import ru.ftc.android.shifttemple.features.tasks.domain.model.Task;
 import ru.ftc.android.shifttemple.features.users.domain.model.User;
 import ru.ftc.android.shifttemple.features.users.presentation.UserLoginLoginActivity;
+import ru.ftc.android.shifttemple.features.users.presentation.UserProfileActivity;
 
 public final class TasksActivity extends BaseActivity implements TasksListView {
 
@@ -59,10 +60,9 @@ public final class TasksActivity extends BaseActivity implements TasksListView {
         profileButtonView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(TasksActivity.this, ProfileActivity.class);
-                //startActivity(intent);
-                //TODO: remove this
-                showLoginForm();
+                Intent intent = new Intent(TasksActivity.this, UserProfileActivity.class);
+                startActivity(intent);
+
             }
         });
         // code by @elviraKarycheva

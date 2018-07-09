@@ -17,4 +17,6 @@ public interface UsersInteractor {
     void loginUser(String login, String password, Carry<User> carry);
 
     void logoutUser();
+
+    void loadLocalUser(Carry<User> carry);
 }

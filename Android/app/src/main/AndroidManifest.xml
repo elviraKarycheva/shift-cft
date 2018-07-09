@@ -20,6 +20,9 @@
         <activity android:name=".features.users.presentation.UserLoginLoginActivity" />
         <activity android:name=".features.tasks.presentation.TaskActivity" />
         <activity android:name=".features.tasks.presentation.NewTaskActivity" />
+
+
+        <activity android:name=".features.users.presentation.UserProfileActivity" />
     </application>
 
 </manifest>

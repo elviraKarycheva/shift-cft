@@ -9,4 +9,10 @@
     <string name="create_new_task_text">Create New Task</string>
     <string name="my_profile">My profile</string>
     <string name="finish_task_text">Finish Task</string>
+
+
+    <string name="hello_text">Hello, %1$s!</string>
+    <string name="karma_text">Your rating is: %1$s</string>
+    <string name="phone_number_text">Your phone number is: %1$s</string>
+    <string name="your_tasks">Your tasks: </string>
 </resources>
