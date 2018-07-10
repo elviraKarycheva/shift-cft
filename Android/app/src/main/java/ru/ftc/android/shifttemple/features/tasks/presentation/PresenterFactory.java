@@ -3,6 +3,8 @@ package ru.ftc.android.shifttemple.features.tasks.presentation;
 import android.content.Context;
 
 import ru.ftc.android.shifttemple.App;
+import ru.ftc.android.shifttemple.features.tasks.data.BidsLocalDataSource;
+import ru.ftc.android.shifttemple.features.tasks.data.BidsLocalDataSourceImpl;
 import ru.ftc.android.shifttemple.features.tasks.data.TasksApi;
 import ru.ftc.android.shifttemple.features.tasks.data.TasksDataSource;
 import ru.ftc.android.shifttemple.features.tasks.data.TasksDataSourceImpl;
@@ -37,7 +39,9 @@ final class PresenterFactory {
 
 
     static TaskPresenter createTaskPresenter(Context context) {
-        return new TaskPresenter(createTasksInteractor(context));
+        TasksInteractor tasksInteractor = createTasksInteractor(context);
+        BidsLocalDataSource bidsLocalDataSource = new BidsLocalDataSourceImpl(context);
+        return new TaskPresenter(tasksInteractor, bidsLocalDataSource);
     }
 
 

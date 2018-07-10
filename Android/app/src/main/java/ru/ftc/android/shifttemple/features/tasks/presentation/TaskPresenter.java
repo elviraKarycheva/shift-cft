@@ -4,10 +4,12 @@ import android.util.Pair;
 import android.view.View;
 
 import java.util.List;
+import java.util.Set;
 
 import ru.ftc.android.shifttemple.exception.NotAuthorizedException;
 import ru.ftc.android.shifttemple.features.MvpPresenter;
 import ru.ftc.android.shifttemple.features.books.domain.model.Success;
+import ru.ftc.android.shifttemple.features.tasks.data.BidsLocalDataSource;
 import ru.ftc.android.shifttemple.features.tasks.domain.TasksInteractor;
 import ru.ftc.android.shifttemple.features.tasks.domain.model.Bid;
 import ru.ftc.android.shifttemple.features.tasks.domain.model.Task;
@@ -15,16 +17,19 @@ import ru.ftc.android.shifttemple.network.Carry;
 
 final class TaskPresenter extends MvpPresenter<TaskView> {
     private final TasksInteractor interactor;
+    private final BidsLocalDataSource bidsLocalDataSource;
 
     private String task_id;
 
-    TaskPresenter(TasksInteractor interactor) {
+    TaskPresenter(TasksInteractor interactor, BidsLocalDataSource bidsLocalDataSource) {
         this.interactor = interactor;
+        this.bidsLocalDataSource = bidsLocalDataSource;
     }
 
     @Override
     protected void onViewReady() {
         loadTask();
+        view.changeCloseButtonVisibility(true);
     }
 
     private void loadTaskBids() {
@@ -34,6 +39,23 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
             public void onSuccess(List<Bid> result) {
                 view.showBidList(result);
                 view.hideProgress();
+                Set<String> bidIds = bidsLocalDataSource.getBidIds();
+
+                boolean choosedBidExists = false;
+
+                for (Bid currentBid : result) {
+                    for (String currentBidId : bidIds) {
+                        if (currentBid.getId().equals(currentBidId)) {
+                            choosedBidExists = true;
+                        }//
+                    }
+                }
+
+                if(choosedBidExists) {
+                    view.changeCloseButtonVisibility(false);
+                } else {
+                    view.changeCloseButtonVisibility(true);
+                }
             }
 
             @Override
@@ -50,6 +72,7 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
 
     void onBidSelected(Bid bid) {
         view.showConfirmationDialog(bid);
+
     }
 
     private void loadTask() {
@@ -90,9 +113,6 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
     }
 
 
-
-
-
     void onBidLongClicked(Bid bid) {
 //        view.showError("May be added to favorite.. May be no;)"); // TODO: favorite
     }
@@ -129,7 +149,7 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
     }
 
 
-    void onBidChoosed(Bid bid) {
+    void onBidChoosed(final Bid bid) {
         view.showProgress();
 
         interactor.chooseTaskBid(task_id, bid, new Carry<Success>() {
@@ -137,7 +157,10 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
             public void onSuccess(Success result) {
                 view.hideProgress();
                 view.showError("Bid choosed");
-                loadTask();
+                bidsLocalDataSource.putBidId(bid.getId());
+                view.changeCloseButtonVisibility(false);
+
+                // loadTask();
             }
 
             @Override

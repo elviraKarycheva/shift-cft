@@ -26,4 +26,6 @@ interface TaskView extends MvpView {
     void showResponseSuccess();
 
     void showInputBidTextDialog();
+
+    void changeCloseButtonVisibility(boolean hide);
 }

@@ -37,7 +37,7 @@ public final class TaskActivity extends BaseActivity implements TaskView {
     private TaskDetailAdapter adapter;
     private TaskPresenter presenter;
     private Button responceButton;
-
+    private Button closeTaskButton;
     private String task_id;
 
     public static void start(Context context, final Task task) {
@@ -101,7 +101,7 @@ public final class TaskActivity extends BaseActivity implements TaskView {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         responceButton = findViewById(R.id.responseButton);
-
+        closeTaskButton = findViewById(R.id.closeTaskButton);
         responceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,10 +183,18 @@ public final class TaskActivity extends BaseActivity implements TaskView {
                 .show();
     }
 
+    @Override
+    public void changeCloseButtonVisibility(boolean hide) {
+        if (hide) {
+            closeTaskButton.setVisibility(View.GONE);
+        } else {
+            closeTaskButton.setVisibility(View.VISIBLE);
+        }
+    }
 
     @Override
     public void showConfirmationDialog(final Bid bid) {
-        AlertDialog.Builder builder =  new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle("Choose bid")
                 .setMessage("Are you sure you want to choose this bid?\n" + bid.getText())
@@ -195,7 +203,7 @@ public final class TaskActivity extends BaseActivity implements TaskView {
                         presenter.onBidChoosed(bid);
                     }
                 })
-                .setNegativeButton(android.R.string.no, null)
+                .setNegativeButton(android.R.string.no, null) //TODO use other string res
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
