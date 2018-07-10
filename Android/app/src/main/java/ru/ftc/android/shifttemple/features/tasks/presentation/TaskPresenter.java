@@ -43,10 +43,12 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
 
                 boolean choosedBidExists = false;
 
+
                 for (Bid currentBid : result) {
                     for (String currentBidId : bidIds) {
                         if (currentBid.getId().equals(currentBidId)) {
                             choosedBidExists = true;
+                            currentBid.setSelected(true);
                         }//
                     }
                 }
@@ -112,7 +114,6 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
 
     }
 
-
     void onBidLongClicked(Bid bid) {
 //        view.showError("May be added to favorite.. May be no;)"); // TODO: favorite
     }
@@ -120,7 +121,6 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
     void setTaskId(final String task_id) {
         this.task_id = task_id;
     }
-
 
     public void onCreateBidClicked() {
         view.showInputBidTextDialog();
@@ -145,9 +145,7 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
                 view.showError(throwable.getMessage());
             }
         });
-
     }
-
 
     void onBidChoosed(final Bid bid) {
         view.showProgress();
@@ -159,8 +157,7 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
                 view.showError("Bid choosed");
                 bidsLocalDataSource.putBidId(bid.getId());
                 view.changeCloseButtonVisibility(false);
-
-                // loadTask();
+                loadTaskBids();
             }
 
             @Override
@@ -169,6 +166,5 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
                 view.showError(throwable.getMessage());
             }
         });
-
     }
 }

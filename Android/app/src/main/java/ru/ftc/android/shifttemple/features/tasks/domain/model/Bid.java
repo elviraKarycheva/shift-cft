@@ -13,6 +13,17 @@ public final class Bid {
     private String tg_link;
     private String email;
 
+    private boolean isSelected;
+
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
     public String getPhone() {
         return phone;
     }
