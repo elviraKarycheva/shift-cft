@@ -37,7 +37,7 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
 
             @Override
             public void onSuccess(List<Bid> result) {
-                view.showBidList(result);
+
                 view.hideProgress();
                 Set<String> bidIds = bidsLocalDataSource.getBidIds();
 
@@ -47,15 +47,29 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
                     for (String currentBidId : bidIds) {
                         if (currentBid.getId().equals(currentBidId)) {
                             choosedBidExists = true;
+                            currentBid.setSelected(true);
                         }//
                     }
                 }
 
-                if(choosedBidExists) {
+                //TODO DELETE THIS CODE
+//                choosedBidExists = true;
+//                Bid firstBid = result.get(0);
+//                result.get(0).setSelected(true);
+//                firstBid.setEmail("mejdld@gmail.com");
+//                firstBid.setPhone("+79231138383");
+//                firstBid.setTg_link("telegram.me/oldlentach");
+//                firstBid.setVk_link("https://vk.com/oldlentach");
+                //TODO DELETE THIS CODE
+
+
+                if (choosedBidExists) {
                     view.changeCloseButtonVisibility(false);
                 } else {
                     view.changeCloseButtonVisibility(true);
                 }
+
+                view.showBidList(result);
             }
 
             @Override
@@ -112,7 +126,6 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
 
     }
 
-
     void onBidLongClicked(Bid bid) {
 //        view.showError("May be added to favorite.. May be no;)"); // TODO: favorite
     }
@@ -120,7 +133,6 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
     void setTaskId(final String task_id) {
         this.task_id = task_id;
     }
-
 
     public void onCreateBidClicked() {
         view.showInputBidTextDialog();
@@ -145,9 +157,7 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
                 view.showError(throwable.getMessage());
             }
         });
-
     }
-
 
     void onBidChoosed(final Bid bid) {
         view.showProgress();
@@ -159,8 +169,7 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
                 view.showError("Bid choosed");
                 bidsLocalDataSource.putBidId(bid.getId());
                 view.changeCloseButtonVisibility(false);
-
-                // loadTask();
+                loadTaskBids();
             }
 
             @Override
@@ -169,6 +178,5 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
                 view.showError(throwable.getMessage());
             }
         });
-
     }
 }

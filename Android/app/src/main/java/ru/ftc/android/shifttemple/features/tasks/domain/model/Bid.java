@@ -8,10 +8,39 @@ public final class Bid {
     private String text;
     private String date;
 
+    //TODO DELETE
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setVk_link(String vk_link) {
+        this.vk_link = vk_link;
+    }
+
+    public void setTg_link(String tg_link) {
+        this.tg_link = tg_link;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    //TODO DELETE
+
     private String phone;
     private String vk_link;
     private String tg_link;
     private String email;
+
+    private boolean isSelected;
+
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
 
     public String getPhone() {
         return phone;

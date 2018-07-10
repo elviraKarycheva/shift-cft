@@ -27,4 +27,28 @@
         android:layout_height="wrap_content"
         tools:text="@string/bid_item_date" />
 
+    <TextView
+        android:id="@+id/bid_phone"
+        style="@style/StyleLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/bid_tg_link"
+        style="@style/StyleLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/bid_vk_link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/StyleLink" />
+
+    <TextView
+        android:id="@+id/bid_email"
+        style="@style/StyleLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
