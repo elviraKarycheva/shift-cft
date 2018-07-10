@@ -37,12 +37,11 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
 
             @Override
             public void onSuccess(List<Bid> result) {
-                view.showBidList(result);
+
                 view.hideProgress();
                 Set<String> bidIds = bidsLocalDataSource.getBidIds();
 
                 boolean choosedBidExists = false;
-
 
                 for (Bid currentBid : result) {
                     for (String currentBidId : bidIds) {
@@ -53,11 +52,24 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
                     }
                 }
 
-                if(choosedBidExists) {
+                //TODO DELETE THIS CODE
+//                choosedBidExists = true;
+//                Bid firstBid = result.get(0);
+//                result.get(0).setSelected(true);
+//                firstBid.setEmail("mejdld@gmail.com");
+//                firstBid.setPhone("+79231138383");
+//                firstBid.setTg_link("telegram.me/oldlentach");
+//                firstBid.setVk_link("https://vk.com/oldlentach");
+                //TODO DELETE THIS CODE
+
+
+                if (choosedBidExists) {
                     view.changeCloseButtonVisibility(false);
                 } else {
                     view.changeCloseButtonVisibility(true);
                 }
+
+                view.showBidList(result);
             }
 
             @Override

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -14,6 +15,7 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -99,7 +101,9 @@ public final class TaskActivity extends BaseActivity implements TaskView {
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,
+                LinearLayout.VERTICAL);
+        recyclerView.addItemDecoration(dividerItemDecoration);
         responceButton = findViewById(R.id.responseButton);
         closeTaskButton = findViewById(R.id.closeTaskButton);
         responceButton.setOnClickListener(new View.OnClickListener() {

@@ -19,6 +19,7 @@ final class TaskDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private Task task;
     private final List<Bid> bids = new ArrayList<>();
     private final LayoutInflater inflater;
+    private boolean checkBidSelected;
     private final SelectBidListener selectBidListener;
 
     TaskDetailAdapter(Context context, SelectBidListener selectBidListener) {
@@ -72,6 +73,16 @@ final class TaskDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void setBids(List<Bid> bidsList) {
         bids.clear();
         bids.addAll(bidsList);
+
+        checkBidSelected = false;
+
+        for (Bid bid : bids) {
+            if (bid.isSelected()){
+                checkBidSelected = true;
+            }
+
+        }
+
         notifyDataSetChanged();
     }
 
@@ -106,7 +117,7 @@ final class TaskDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             bidUserNameView.setText(bid.getUserName());
             bidTextView.setText(bid.getText());
             bidDateView.setText(bid.getDate());
-            if (bid.isSelected()){
+            if (bid.isSelected()) {
                 bidPhone.setText(bid.getPhone());
                 bidTgLink.setText(bid.getTgLink());
                 bidVkLink.setText(bid.getVkLink());
@@ -124,23 +135,25 @@ final class TaskDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 bidEmail.setVisibility(View.GONE);
                 itemView.setBackgroundResource(R.color.colorBidIsntSelected);
             }
+            if (!checkBidSelected) {
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        selectBidListener.onBidSelect(bid);
+                    }
+                });
 
-
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    selectBidListener.onBidSelect(bid);
-                }
-            });
-
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    selectBidListener.onBidLongClick(bid);
-                    return true;
-                }
-            });
+                itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        selectBidListener.onBidLongClick(bid);
+                        return true;
+                    }
+                });
+            } else {
+                itemView.setOnClickListener(null);
+                itemView.setOnLongClickListener(null);
+            }
         }
     }
 
