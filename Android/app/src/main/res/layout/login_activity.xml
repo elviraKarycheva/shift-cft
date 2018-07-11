@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -18,21 +16,31 @@
         android:paddingTop="@dimen/login_activity_padding"
         android:scrollbars="vertical">
 
-        <EditText
-            android:id="@+id/login_input_login"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/login_login_text"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/login_hint_color" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/login_input_password"
+            <EditText
+                android:id="@+id/login_input_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/login_login_text"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/login_hint_color" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/login_password_text"
-            android:inputType="textPassword"
-            android:textColor="@color/login_hint_color" />
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/login_input_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/login_password_text"
+                android:inputType="textPassword"
+                android:textColor="@color/login_hint_color" />
+        </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/btn_login"
@@ -50,7 +58,7 @@
             android:layout_marginTop="@dimen/login_between_buttons_margin"
             android:background="@color/colorPrimaryDark"
             android:text="@string/login_registration_button_text"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
     <ProgressBar

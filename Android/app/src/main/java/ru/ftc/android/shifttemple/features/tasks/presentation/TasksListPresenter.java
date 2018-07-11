@@ -52,6 +52,9 @@ final class TasksListPresenter extends MvpPresenter<TasksListView> {
 
             @Override
             public void onSuccess(List<Task> result) {
+                if (view == null) {
+                    return;
+                }
                 view.showTaskList(result);
                 view.hideProgress();
             }

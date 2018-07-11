@@ -18,11 +18,16 @@
         </activity>
         <activity android:name=".features.books.presentation.BookActivity" />
         <activity android:name=".features.users.presentation.UserLoginLoginActivity" />
-        <activity android:name=".features.tasks.presentation.TaskActivity" />
-        <activity android:name=".features.tasks.presentation.NewTaskActivity" />
+        <activity
+            android:name=".features.tasks.presentation.TaskActivity"
+            android:label="@string/task_activity_title" />
+        <activity android:name=".features.tasks.presentation.NewTaskActivity"
+            android:label="@string/new_task_title"/>
 
 
-        <activity android:name=".features.users.presentation.UserProfileActivity" />
+        <activity
+            android:name=".features.users.presentation.UserProfileActivity"
+            android:label="@string/my_profile_title" />
     </application>
 
 </manifest>
