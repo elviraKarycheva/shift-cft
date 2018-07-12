@@ -29,7 +29,7 @@ final class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskHolder> {
     @NonNull
     @Override
     public TaskHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        final View itemView = inflater.inflate(R.layout.task_item, parent, false);
+        final View itemView = inflater.inflate(R.layout.tasks_item, parent, false);
         return new TaskHolder(itemView, selectTaskListener);
     }
 
@@ -52,7 +52,7 @@ final class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskHolder> {
     class TaskHolder extends RecyclerView.ViewHolder {
 
         private final TextView taskTitleView;
-        private final TextView taskDescriptionView;
+        //private final TextView taskDescriptionView;
         private final TextView taskDateView;
         private final SelectTaskListener selectTaskListener;
 
@@ -60,13 +60,13 @@ final class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskHolder> {
             super(view);
             this.selectTaskListener = selectTaskListener;
             taskTitleView = view.findViewById(R.id.task_item_title);
-            taskDescriptionView = view.findViewById(R.id.task_item_description);
+            //taskDescriptionView = view.findViewById(R.id.task_item_description);
             taskDateView = view.findViewById(R.id.task_item_date);
         }
 
         void bind(final Task task) {
             taskTitleView.setText(task.getTitle());
-            taskDescriptionView.setText(task.getShortDescription()); // TODO: constant define .substring(0, 100)
+           // taskDescriptionView.setText(task.getShortDescription()); // TODO: constant define .substring(0, 100)
             taskDateView.setText(task.getDate());
 
 
