@@ -59,12 +59,7 @@ final class TaskPresenter extends MvpPresenter<TaskView> {
 //                firstBid.setVk_link("https://vk.com/oldlentach");
                 //TODO DELETE THIS CODE
 
-
-                if (choosedBidExists) {
-                    view.changeCloseButtonVisibility(false);
-                } else {
-                    view.changeCloseButtonVisibility(true);
-                }
+                view.changeCloseButtonVisibility(!choosedBidExists);
 
                 view.showBidList(result);
             }
