@@ -1,5 +1,8 @@
 package ru.ftc.android.shifttemple.network;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import java.io.IOException;
 
 import okhttp3.HttpUrl;
@@ -10,7 +13,10 @@ import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import ru.ftc.android.shifttemple.R;
+import ru.ftc.android.shifttemple.features.users.data.UsersLocalDataSourceImpl;
 import ru.ftc.android.shifttemple.features.users.data.UsersLocalRepository;
+import ru.ftc.android.shifttemple.features.users.data.UsersLocalRepositoryImpl;
 
 /**
  * Created: samokryl
@@ -21,7 +27,7 @@ import ru.ftc.android.shifttemple.features.users.data.UsersLocalRepository;
 public final class RetrofitProvider {
 
 
-    private static final String BASE_URL = "http://172.16.19.152:8080/api/";
+    private static final String BASE_URL = "http://172.16.16.80:8080/api/"; //"http://ksware.ru/sandbox/gf-api/";
 
     private final Retrofit retrofit;
 
